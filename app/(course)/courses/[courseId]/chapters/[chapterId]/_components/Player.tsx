@@ -40,12 +40,6 @@ function Player({ src, muted, onEnd }: Props) {
     if (videoRef.current) {
       if (videoRef.current.requestFullscreen) {
         videoRef.current.requestFullscreen();
-      } else if (videoRef.current.webkitRequestFullscreen) {
-        /* Safari */
-        videoRef.current.webkitRequestFullscreen();
-      } else if (videoRef.current.msRequestFullscreen) {
-        /* IE11 */
-        videoRef.current.msRequestFullscreen();
       }
     }
   }
