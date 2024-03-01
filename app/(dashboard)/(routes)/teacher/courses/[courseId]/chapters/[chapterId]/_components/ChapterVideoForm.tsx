@@ -10,7 +10,6 @@ import { Chapter, Course, MuxData } from "@prisma/client";
 import Image from "next/image";
 import MuxPlayer from "@mux/mux-player-react";
 import FileUploader from "@/components/FileUploader";
-import ReactVideoPlayer from "@/components/ReactVideoPlayer";
 
 const formSchema = z.object({
   videoUrl: z.string().min(1),
@@ -73,7 +72,6 @@ function ChapterVideoForm({
           </div>
         ) : (
           <div className="relative aspect-video mt-2">
-            {/* <ReactVideoPlayer url={initialData.videoUrl} /> */}
             <MuxPlayer playbackId={initialData?.muxData?.playbackId || ""} />
           </div>
         )
