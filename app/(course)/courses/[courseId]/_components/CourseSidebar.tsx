@@ -40,7 +40,7 @@ async function CourseSidebar({ course, progressCount }: CourseSidebarProps) {
             label={chapter.title}
             isCompleted={!!chapter.userProgress?.[0]?.isCompleted}
             courseId={course.id}
-            isLocked={!chapter.isFree && !purchase}
+            isLocked={!chapter.isFree && !purchase?.isActivated}
           />
         ))}
       </div>

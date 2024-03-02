@@ -54,12 +54,16 @@ export const getCourses = async ({
           if (course.purchases.length === 0) {
             return {
               ...course,
+              isPurchased: false,
+              isActivated: false,
               progress: null,
             };
           }
           const progressPercentage = await getProgress(userId, course.id);
           return {
             ...course,
+            isPurchased: true,
+            isActivated: course.purchases[0].isActivated,
             progress: progressPercentage,
           };
         })

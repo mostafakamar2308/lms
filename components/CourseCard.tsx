@@ -13,6 +13,8 @@ interface CourseCardProps {
   chaptersLength: number;
   progress: number | null;
   category?: string;
+  isPurchased?: boolean;
+  isActivated?: boolean;
 }
 
 function CourseCard({
@@ -23,6 +25,8 @@ function CourseCard({
   chaptersLength,
   progress,
   category,
+  isActivated,
+  isPurchased,
 }: CourseCardProps) {
   return (
     <Link href={`/courses/${id}`}>
@@ -48,15 +52,19 @@ function CourseCard({
               </span>
             </div>
           </div>
-          {progress !== null ? (
+          {!isPurchased ? (
+            <p className="text-md text-right md:text-sm font-medium text-slate-700">
+              {formatPrice(price)}
+            </p>
+          ) : progress !== null && isActivated ? (
             <CourseProgress
               size="sm"
               value={progress}
               variant={progress == 100 ? "success" : "default"}
             />
           ) : (
-            <p className="text-md md:text-sm font-medium text-slate-700">
-              {formatPrice(price)}
+            <p className="text-sm text-right md:text-xs font-medium text-slate-700">
+              Wait for activation
             </p>
           )}
         </div>

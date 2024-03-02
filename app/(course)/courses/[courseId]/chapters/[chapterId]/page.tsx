@@ -9,6 +9,7 @@ import { Separator } from "@/components/ui/separator";
 import { Preview } from "@/components/Preview";
 import { File } from "lucide-react";
 import CourseProgressButton from "./_components/CourseProgressButton";
+import { Button } from "@/components/ui/button";
 
 async function Page({
   params,
@@ -38,7 +39,9 @@ async function Page({
     return redirect("/");
   }
 
-  const isLocked = !chapter.isFree && !purchase;
+  const isPurchased = purchase;
+  const isActivated = !!purchase?.isActivated;
+
   const completeOnEnd = !!purchase && !userProgress?.isCompleted;
 
   return (
@@ -49,9 +52,15 @@ async function Page({
           variant={"success"}
         />
       )}
-      {isLocked && (
+      {!isPurchased && (
         <Banner
           label="You need to purchase this course to watch this chapter"
+          variant={"warning"}
+        />
+      )}
+      {isPurchased && !isActivated && (
+        <Banner
+          label="Wait for Activating this course from the admins"
           variant={"warning"}
         />
       )}
@@ -64,13 +73,18 @@ async function Page({
             courseId={params.courseId}
             nextChapterId={nextChapter?.id}
             playbackId={muxData?.playbackId!}
-            isLocked={isLocked}
+            isLocked={!isActivated && !chapter.isFree}
             completeOnEnd={completeOnEnd}
           />
         </div>
         <div className="p-4 flex flex-col md:flex-row items-center justify-between">
           <h2 className="text-2xl font-semibold mb-2">{chapter.title}</h2>
-          {purchase ? (
+          {!isPurchased ? (
+            <CourseEnrollButton
+              courseId={params.courseId}
+              price={course.price!}
+            />
+          ) : purchase?.isActivated ? (
             <>
               <CourseProgressButton
                 chapterId={params.chapterId}
@@ -80,17 +94,14 @@ async function Page({
               />
             </>
           ) : (
-            <CourseEnrollButton
-              courseId={params.courseId}
-              price={course.price!}
-            />
+            <Button disabled={true}>Waiting for activation</Button>
           )}
         </div>
         <Separator />
         <div>
           <Preview value={chapter.description!} />
         </div>
-        {!!attachements?.length && (
+        {isPurchased && isActivated && !!attachements?.length && (
           <>
             <Separator />
             <div className="p-4">

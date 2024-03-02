@@ -5,6 +5,8 @@ type CoursesProps = Course & {
   category: Category | null;
   chapters: { id: string }[];
   progress: number | null;
+  isActivated?: boolean;
+  isPurchased?: boolean;
 };
 
 interface CourseProps {
@@ -21,6 +23,8 @@ function CoursesList({ items }: CourseProps) {
       <div className="grid sm:grid-cols-2 md:grid-cols2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
         {items.map((course) => (
           <CourseCard
+            isPurchased={course.isPurchased}
+            isActivated={course.isActivated}
             key={course.id}
             id={course.id}
             title={course.title}
