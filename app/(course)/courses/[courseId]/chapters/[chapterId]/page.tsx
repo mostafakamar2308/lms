@@ -20,20 +20,12 @@ async function Page({
   if (!userId) {
     return redirect("/");
   }
-  const {
-    chapter,
-    course,
-    muxData,
-    attachements,
-    nextChapter,
-    userProgress,
-    purchase,
-  } = await getChapter({
-    userId,
-    chapterId: params.chapterId,
-    courseId: params.courseId,
-  });
-  console.log(chapter?.videoUrl);
+  const { chapter, course, attachements, nextChapter, userProgress, purchase } =
+    await getChapter({
+      userId,
+      chapterId: params.chapterId,
+      courseId: params.courseId,
+    });
 
   if (!course || !chapter) {
     return redirect("/");
@@ -72,7 +64,6 @@ async function Page({
             title={chapter.title}
             courseId={params.courseId}
             nextChapterId={nextChapter?.id}
-            playbackId={muxData?.playbackId!}
             isLocked={!isActivated && !chapter.isFree}
             completeOnEnd={completeOnEnd}
           />

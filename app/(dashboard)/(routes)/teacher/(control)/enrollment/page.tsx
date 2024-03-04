@@ -1,8 +1,8 @@
 import { db } from "@/lib/db";
-import { columns } from "./_components/Columns";
-import DataTable from "./_components/DataTable";
+import { columns } from "../_components/Columns";
 import { auth } from "@clerk/nextjs";
 import { redirect } from "next/navigation";
+import { DataTable } from "../../courses/_components/DataTable";
 
 async function page() {
   const { userId } = auth();
@@ -29,14 +29,10 @@ async function page() {
     ...course,
     purchases: course.purchases.length,
   }));
+
   return (
     <div className="max-w-5xl mx-auto flex flex-col h-full p-6">
-      <div>
-        <h1 className="text-2xl">New Enrollment</h1>
-      </div>
-      <div>
-        <DataTable columns={columns} data={coursesWithPurchases} />
-      </div>
+      <DataTable columns={columns} data={coursesWithPurchases} />
     </div>
   );
 }

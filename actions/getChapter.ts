@@ -39,7 +39,6 @@ export const getChapter = async ({
       throw new Error("Chapter or Course not found");
     }
 
-    let muxData: MuxData | null = null;
     let attachements: Attachemnt[] | null = null;
     let nextChapter: Chapter | null = null;
 
@@ -51,11 +50,6 @@ export const getChapter = async ({
       });
     }
     if (chapter.isFree || purchase) {
-      muxData = await db.muxData.findUnique({
-        where: {
-          chapterId,
-        },
-      });
       nextChapter = await db.chapter.findFirst({
         where: {
           courseId,
@@ -80,7 +74,6 @@ export const getChapter = async ({
     return {
       chapter,
       course,
-      muxData,
       attachements,
       userProgress,
       purchase,
@@ -91,7 +84,6 @@ export const getChapter = async ({
     return {
       chapter: null,
       course: null,
-      muxData: null,
       attachment: null,
       nextChapter: null,
       userPropress: null,
