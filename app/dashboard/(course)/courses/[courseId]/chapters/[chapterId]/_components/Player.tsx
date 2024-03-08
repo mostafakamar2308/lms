@@ -19,9 +19,6 @@ function Player({ src, muted, onEnd }: Props) {
   const [elapsedSec, setElapsedSec] = useState(1);
   const [isPlaying, setIsPlaying] = useState(false);
   const [isWaiting, setIsWaiting] = useState(true);
-  const [isLoaded, setIsLoaded] = useState(false);
-  const router = useRouter();
-  const confetti = useConfettiStore();
 
   const videoRef = useRef<HTMLVideoElement>(null);
   const progressRef = useRef<HTMLDivElement>(null);
@@ -120,6 +117,7 @@ function Player({ src, muted, onEnd }: Props) {
         disablePictureInPicture
         controlsList="nodownload noplaybackrate"
         controls={false}
+        onCanPlay={() => setIsWaiting(false)}
         onEnded={() => setIsPlaying(false)}
         muted={muted}
         ref={videoRef}
@@ -131,15 +129,15 @@ function Player({ src, muted, onEnd }: Props) {
         <Fullscreen className="w-6 h-6 text-white" />
       </button>
 
-      <div className="absolute inset-1/2  -translate-y-1/2  flex items-center justify-center -translate-x-1/2">
-        {isLoaded && !isPlaying && (
+      <div className="absolute inset-1/2 bg-white -translate-y-1/2  flex items-center justify-center -translate-x-1/2">
+        {!isWaiting && !isPlaying && (
           <Play
             onClick={handlePlaying}
             className="min-w-12 min-h-12   z-100 bg-slate-800 hover:bg-slate-500 rounded-full p-2 text-white"
           />
         )}
         {isWaiting && (
-          <Loader2 className="text-white bg-slate-800 animate-spin w-8 h-8 rounded-full" />
+          <Loader2 className="min-w-12 min-h-12  animate-spin z-100 bg-slate-800 rounded-full p-2 text-white" />
         )}
       </div>
 
