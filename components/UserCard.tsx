@@ -75,14 +75,14 @@ function UserCard({
         </h1>
         <p className="text-xs text-slate-700">{email}</p>
         <div className="flex gap-2 mt-4">
-          <Button
+          {/* <Button
             disabled={isLoading}
             onClick={onReject}
             className="flex gap-2 items-center text-xs"
           >
             <X className="w-4 h-4 text-slate-200" />
             Reject
-          </Button>
+          </Button> */}
           <Button
             disabled={isLoading}
             variant={"success"}

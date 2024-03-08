@@ -56,7 +56,7 @@ export function DataTable<TData, TValue>({
 
   return (
     <div>
-      <div className="flex items-center py-4 w-full justify-between">
+      <div className="flex flex-wrap  gap-2 md:flex-nowrap items-center py-4 w-full justify-between">
         <Input
           placeholder="Filter by course Name..."
           value={(table.getColumn("title")?.getFilterValue() as string) ?? ""}

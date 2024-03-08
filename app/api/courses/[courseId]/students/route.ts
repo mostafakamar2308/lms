@@ -36,11 +36,19 @@ export async function POST(
       },
     });
 
-    if (purchase) {
-      return new NextResponse(
-        "The user is previosly registered please just activate him",
-        { status: 401 }
-      );
+    if (purchase && !purchase?.isActivated) {
+      const newPurchase = await db.purchase.update({
+        where: {
+          userId_courseId: {
+            userId: studentId,
+            courseId: params.courseId,
+          },
+        },
+        data: {
+          isActivated: true,
+        },
+      });
+      return NextResponse.json(newPurchase);
     }
     const newPurchase = await db.purchase.create({
       data: {

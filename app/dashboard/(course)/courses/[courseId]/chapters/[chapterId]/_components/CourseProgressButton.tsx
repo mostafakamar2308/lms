@@ -28,14 +28,16 @@ function CourseProgressButton({
     try {
       setIsLoading(true);
       await axios.put(
-        `/api/course/${courseId}/chapters/${chapterId}/progress`,
+        `/api/courses/${courseId}/chapters/${chapterId}/progress`,
         { isCompleted: !isCompleted }
       );
       if (!isCompleted && !nextChapterId) {
         confetti.onOpen();
       }
       if (!isCompleted && nextChapterId) {
-        router.push(`/courses/${courseId}/chapters/${nextChapterId}/`);
+        router.push(
+          `/dashboard/courses/${courseId}/chapters/${nextChapterId}/`
+        );
       }
       toast.success("Progress Updated");
       router.refresh();

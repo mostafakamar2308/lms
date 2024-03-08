@@ -58,7 +58,7 @@ async function page({ params }: { params: { courseId: string } }) {
       <div>
         {users.length === 0 && (
           <div className="text-xl text-center text-slate-700 ">
-            No New enrollments
+            No New enrollments Right now!
           </div>
         )}
       </div>

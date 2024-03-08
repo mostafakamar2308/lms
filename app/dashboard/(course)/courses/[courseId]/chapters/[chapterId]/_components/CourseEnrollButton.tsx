@@ -5,13 +5,16 @@ import { formatPrice } from "@/lib/format";
 import toast from "react-hot-toast";
 import axios from "axios";
 import { useRouter } from "next/navigation";
+import EnrollModal from "@/components/modals/EnrollModal";
 
 function CourseEnrollButton({
   price,
   courseId,
+  title,
 }: {
   price: number;
   courseId: string;
+  title: string;
 }) {
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
@@ -29,9 +32,11 @@ function CourseEnrollButton({
     }
   };
   return (
-    <Button disabled={isLoading} onClick={onClick} className="w-full md:w-auto">
-      Enrol for {formatPrice(price)} EGP
-    </Button>
+    <EnrollModal onConfirm={onClick} price={price} title={title}>
+      <Button disabled={isLoading} className="w-full md:w-auto">
+        Enrol for {formatPrice(price)} EGP
+      </Button>
+    </EnrollModal>
   );
 }
 

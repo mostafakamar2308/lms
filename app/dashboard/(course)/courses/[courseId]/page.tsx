@@ -5,6 +5,7 @@ async function CoursePage({ params }: { params: { courseId: string } }) {
   const course = await db.course.findUnique({
     where: {
       id: params.courseId,
+      isPublished: true,
     },
     include: {
       chapters: {
@@ -15,7 +16,7 @@ async function CoursePage({ params }: { params: { courseId: string } }) {
       },
     },
   });
-  if (!course) redirect("/");
+  if (!course) return redirect("/dashboard");
   return redirect(
     `/dashboard/courses/${params.courseId}/chapters/${course.chapters[0].id}`
   );

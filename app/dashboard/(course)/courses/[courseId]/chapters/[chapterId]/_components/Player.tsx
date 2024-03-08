@@ -18,7 +18,8 @@ function Player({ src, muted, onEnd }: Props) {
   const [durationSec, setDurationSec] = useState(1);
   const [elapsedSec, setElapsedSec] = useState(1);
   const [isPlaying, setIsPlaying] = useState(false);
-  const [isWaiting, setIsWaiting] = useState(false);
+  const [isWaiting, setIsWaiting] = useState(true);
+  const [isLoaded, setIsLoaded] = useState(false);
   const router = useRouter();
   const confetti = useConfettiStore();
 
@@ -129,14 +130,19 @@ function Player({ src, muted, onEnd }: Props) {
       >
         <Fullscreen className="w-6 h-6 text-white" />
       </button>
-      <div className="absolute inset-1/2  z-100">
-        {!isPlaying && (
+
+      <div className="absolute inset-1/2  -translate-y-1/2  flex items-center justify-center -translate-x-1/2">
+        {isLoaded && !isPlaying && (
           <Play
             onClick={handlePlaying}
-            className="w-12 hover:bg-slate-500 -translate-y-1/2 -translate-x-1/2 z-100 h-12 bg-slate-800 rounded-full p-2 text-white"
+            className="min-w-12 min-h-12   z-100 bg-slate-800 hover:bg-slate-500 rounded-full p-2 text-white"
           />
         )}
+        {isWaiting && (
+          <Loader2 className="text-white bg-slate-800 animate-spin w-8 h-8 rounded-full" />
+        )}
       </div>
+
       <div
         className={cn(
           "absolute bottom-0 w-full group px-4 py-2 flex gap-4 items-center",

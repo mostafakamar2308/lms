@@ -50,7 +50,7 @@ async function page({ params }: { params: { courseId: string } }) {
         <ArrowLeft className="h-4 w-4 mr-2" />
         Back to Students page
       </Link>
-      <div className="flex justify-between  mb-4">
+      <div className="flex justify-between flex-wrap md:flex-nowrap gap-1 mb-4">
         <h1 className="text-xl font-medium ">
           Activated Students in <span className="">{courseOwner.title}</span>
         </h1>
@@ -68,6 +68,11 @@ async function page({ params }: { params: { courseId: string } }) {
             courseId={params.courseId}
           />
         ))}
+        {users.length === 0 && (
+          <h2 className="text-slate-700 text-center">
+            No active Students Right now!
+          </h2>
+        )}
       </div>
     </div>
   );

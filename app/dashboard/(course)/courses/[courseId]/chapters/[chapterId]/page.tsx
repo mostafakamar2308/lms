@@ -72,6 +72,7 @@ async function Page({
           <h2 className="text-2xl font-semibold mb-2">{chapter.title}</h2>
           {!isPurchased ? (
             <CourseEnrollButton
+              title={course.title}
               courseId={params.courseId}
               price={course.price!}
             />
