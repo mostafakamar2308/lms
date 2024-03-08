@@ -40,7 +40,6 @@ const ChaptersList = ({ onEdit, onReorder, items }: ChapterListProps) => {
     const endIndex = Math.max(result.source.index, result.destination.index);
 
     const updatedChapters = items.slice(startIndex, endIndex + 1);
-    console.log(updatedChapters, items);
     setChapters(items);
 
     const bulkUpdateData = updatedChapters.map((chapter) => ({

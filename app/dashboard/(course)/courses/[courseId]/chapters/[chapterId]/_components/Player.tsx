@@ -25,7 +25,6 @@ function Player({ src, muted, onEnd }: Props) {
   const bufferRef = useRef<HTMLDivElement>(null);
 
   const handlePlaying = () => {
-    console.log(videoRef.current?.currentTime);
     if (!isPlaying) {
       videoRef.current?.play();
       setIsPlaying(true);
@@ -115,6 +114,7 @@ function Player({ src, muted, onEnd }: Props) {
         className="shrink aspect-video object-cover rounded-md"
         src={src}
         disablePictureInPicture
+        disableRemotePlayback
         controlsList="nodownload noplaybackrate"
         controls={false}
         onCanPlay={() => setIsWaiting(false)}
