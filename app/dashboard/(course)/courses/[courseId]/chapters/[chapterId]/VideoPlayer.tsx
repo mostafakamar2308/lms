@@ -3,13 +3,14 @@
 import { cn } from "@/lib/utils";
 import MuxPlayer from "@mux/mux-player-react";
 import { Loader2, Lock } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { TheosPlayer } from "@aka_theos/react-hls-player";
 import Player from "./_components/Player";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import { useConfettiStore } from "@/hooks/use-confetti-store";
+import { ReplayPlayerWrapper } from "./_components/ReplayPlayerWrapper";
 
 interface VideoPlayerProps {
   chapterId: string;
@@ -53,6 +54,7 @@ function VideoPlayer({
       toast.error("Something went wrong");
     }
   };
+
   return (
     <div className="relative aspect-video">
       {isLocked && (
@@ -62,12 +64,13 @@ function VideoPlayer({
         </div>
       )}
       {!isLocked && (
-        <Player
-          onEnd={onVideoEnd}
-          src={videoUrl}
-          muted={false}
-          autoPlay={false}
-        />
+        // <Player
+        //   onEnd={onVideoEnd}
+        //   src={videoUrl}
+        //   muted={false}
+        //   autoPlay={false}
+        // />
+        <ReplayPlayerWrapper src={videoUrl} onEnd={onVideoEnd} />
       )}
     </div>
   );
