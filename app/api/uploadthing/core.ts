@@ -10,7 +10,7 @@ const handleAuth = () => {
   const isAuthorized = isTeacher(userId);
   if (!userId || !isAuthorized) throw new Error("Unauthorized");
   return { userId };
-}; // Fake auth function
+};
 
 // FileRouter for your app, can contain multiple FileRoutes
 export const ourFileRouter = {
@@ -22,7 +22,9 @@ export const ourFileRouter = {
     .onUploadComplete(() => {}),
   chapterVideo: f({ video: { maxFileCount: 1, maxFileSize: "512GB" } })
     .middleware(() => handleAuth())
-    .onUploadComplete(() => {}),
+    .onUploadComplete((data) => {
+      console.log("Video upload completed", data);
+    }),
 } satisfies FileRouter;
 
 export type OurFileRouter = typeof ourFileRouter;
