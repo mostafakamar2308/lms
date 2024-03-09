@@ -68,12 +68,12 @@ async function page({ params }: { params: { courseId: string } }) {
             courseId={params.courseId}
           />
         ))}
-        {users.length === 0 && (
-          <h2 className="text-slate-700 text-center">
-            No active Students Right now!
-          </h2>
-        )}
       </div>
+      {users.length === 0 && (
+        <h2 className="text-slate-700 text-center">
+          No active Students Right now!
+        </h2>
+      )}
     </div>
   );
 }
