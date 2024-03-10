@@ -28,6 +28,7 @@ export const getDashboardCourses = async (
         course: {
           include: {
             category: true,
+
             chapters: {
               where: {
                 isPublished: true,
@@ -49,10 +50,10 @@ export const getDashboardCourses = async (
     }
 
     const completedCourses = courses.filter(
-      (course) => course.progress === 100
+      (course) => course.progress === 100 && course.isPublished
     );
     const coursesInProgress = courses.filter(
-      (course) => (course.progress ?? 0) < 100
+      (course) => (course.progress ?? 0) < 100 && course.isPublished
     );
     return {
       completedCourses,
