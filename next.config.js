@@ -11,6 +11,7 @@ const nextConfig = {
         hostname: "utfs.io",
       },
     ],
+    unoptimized: true,
   },
 };
 

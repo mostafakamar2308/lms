@@ -1,4 +1,3 @@
-import { Chapter } from "@prisma/client";
 import { db } from "@/lib/db";
 import { auth } from "@clerk/nextjs";
 import { NextResponse } from "next/server";
@@ -6,11 +5,10 @@ import { isTeacher } from "@/lib/teacher";
 
 export async function POST(
   req: Request,
-  { params }: { params: { courseId: string } }
+  { params }: { params: { courseId: string; chapterId: string } }
 ) {
   try {
     const { userId } = auth();
-    const { title } = await req.json();
     if (!userId || !isTeacher(userId)) {
       return new NextResponse("Unauthorized", { status: 401 });
     }
@@ -23,27 +21,19 @@ export async function POST(
     if (!courseOwner) {
       return new NextResponse("Unauthorized", { status: 401 });
     }
-    const lastChapter = await db.chapter.findFirst({
+    const exam = await db.exam.upsert({
       where: {
-        courseId: params.courseId,
+        chapterId: params.chapterId,
       },
-      orderBy: {
-        position: "desc",
+      create: {
+        chapterId: params.chapterId,
       },
+      update: {},
     });
 
-    const newPosition = lastChapter ? lastChapter.position + 1 : 1;
-    const chapter = await db.chapter.create({
-      data: {
-        title,
-        position: newPosition,
-        courseId: params.courseId,
-      },
-    });
-
-    return NextResponse.json(chapter);
+    return NextResponse.json(exam);
   } catch (error) {
-    console.log("Chapters POST", error);
+    console.log("Exam POST", error);
     return new NextResponse("Internal Error", { status: 500 });
   }
 }

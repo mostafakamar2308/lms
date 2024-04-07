@@ -64,6 +64,8 @@ model Chapter {
   isPublished Boolean @default(false)
   isFree      Boolean @default(false)
 
+  exam Exam?
+
   muxData MuxData?
 
   courseId String
@@ -75,6 +77,27 @@ model Chapter {
   updatedAt DateTime @updatedAt
 
   @@index([courseId])
+}
+
+model Exam {
+  id        String     @id @default(uuid())
+  questions Question[]
+
+  chapterId String  @unique
+  chapter   Chapter @relation(fields: [chapterId], references: [id], onDelete: Cascade)
+
+  @@index([chapterId])
+}
+
+model Question {
+  id            String   @id @default(uuid())
+  questionHead  String
+  answers       String[]
+  correctAnswer String
+  examId        String
+  Exam          Exam     @relation(fields: [examId], references: [id])
+
+  @@index([examId])
 }
 
 model MuxData {

@@ -1,7 +1,13 @@
 import { IconBadge } from "@/components/IconBadge";
 import { db } from "@/lib/db";
 import { auth } from "@clerk/nextjs";
-import { ArrowLeft, Eye, LayoutDashboard, Video } from "lucide-react";
+import {
+  ArrowLeft,
+  BookCheck,
+  Eye,
+  LayoutDashboard,
+  Video,
+} from "lucide-react";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import ChapterTitleForm from "./_components/ChapterTitleForm";
@@ -10,6 +16,8 @@ import ChapterAccessForm from "./_components/ChapterAccessForm";
 import ChapterVideoForm from "./_components/ChapterVideoForm";
 import { Banner } from "@/components/Banner";
 import { ChapterActions } from "./_components/ChapterActions";
+import ExamActions from "./_components/ExamActions";
+import Question from "./_components/Question";
 
 const ChapterPage = async ({
   params,
@@ -27,6 +35,11 @@ const ChapterPage = async ({
     },
     include: {
       muxData: true,
+      exam: {
+        include: {
+          questions: true,
+        },
+      },
     },
   });
   if (!chapter) {
@@ -37,6 +50,8 @@ const ChapterPage = async ({
   const completedFields = requiredField.filter(Boolean).length;
   const completionText = `${completedFields}/${totalFields}`;
   const isCompelete = requiredField.every(Boolean);
+  const hasExam = !!chapter.exam;
+
   return (
     <>
       {!chapter.isPublished && (
@@ -63,6 +78,7 @@ const ChapterPage = async ({
                 </span>
               </div>
               <ChapterActions
+                hasExam={hasExam}
                 disabled={!isCompelete}
                 courseId={params.courseId}
                 chapterId={params.chapterId}
@@ -111,6 +127,29 @@ const ChapterPage = async ({
             />
           </div>
         </div>
+        {hasExam && (
+          <>
+            <div className="flex items-center justify-between w-full">
+              <div className="flex items-center gap-x-2 mt-4 ">
+                <IconBadge icon={BookCheck} />
+                <h2 className="text-xl">Edit The Exam</h2>
+              </div>
+              <ExamActions
+                courseId={params.courseId}
+                chapterId={params.chapterId}
+                examId={chapter.exam?.id!}
+              />
+            </div>
+            {chapter.exam?.questions.map((question) => (
+              <Question
+                key={question.id}
+                chapterId={params.chapterId}
+                courseId={params.courseId}
+                {...question}
+              />
+            ))}
+          </>
+        )}
       </div>
     </>
   );

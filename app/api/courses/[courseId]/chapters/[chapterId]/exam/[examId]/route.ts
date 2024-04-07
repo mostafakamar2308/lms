@@ -1,4 +1,3 @@
-import { Chapter } from "@prisma/client";
 import { db } from "@/lib/db";
 import { auth } from "@clerk/nextjs";
 import { NextResponse } from "next/server";
@@ -6,11 +5,13 @@ import { isTeacher } from "@/lib/teacher";
 
 export async function POST(
   req: Request,
-  { params }: { params: { courseId: string } }
+  {
+    params,
+  }: { params: { examId: string; courseId: string; chapterId: string } }
 ) {
   try {
     const { userId } = auth();
-    const { title } = await req.json();
+    const { question } = await req.json();
     if (!userId || !isTeacher(userId)) {
       return new NextResponse("Unauthorized", { status: 401 });
     }
@@ -23,27 +24,18 @@ export async function POST(
     if (!courseOwner) {
       return new NextResponse("Unauthorized", { status: 401 });
     }
-    const lastChapter = await db.chapter.findFirst({
-      where: {
-        courseId: params.courseId,
-      },
-      orderBy: {
-        position: "desc",
-      },
-    });
 
-    const newPosition = lastChapter ? lastChapter.position + 1 : 1;
-    const chapter = await db.chapter.create({
+    const newQuestion = await db.question.create({
       data: {
-        title,
-        position: newPosition,
-        courseId: params.courseId,
+        examId: params.examId,
+        questionHead: question.questionHead,
+        correctAnswer: question.correctAnswer,
+        answers: question.answers,
       },
     });
-
-    return NextResponse.json(chapter);
+    return NextResponse.json(newQuestion);
   } catch (error) {
-    console.log("Chapters POST", error);
+    console.log("Exam POST", error);
     return new NextResponse("Internal Error", { status: 500 });
   }
 }

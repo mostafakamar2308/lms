@@ -12,12 +12,14 @@ interface ChapterActionsProps {
   courseId: string;
   chapterId: string;
   isPublished: boolean;
+  hasExam: boolean;
 }
 export const ChapterActions = ({
   disabled,
   courseId,
   chapterId,
   isPublished,
+  hasExam,
 }: ChapterActionsProps) => {
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
@@ -35,6 +37,19 @@ export const ChapterActions = ({
         );
         toast.success("Chapter published");
       }
+      router.refresh();
+    } catch (error) {
+      toast.error("Something went Wrong");
+    } finally {
+      setIsLoading(false);
+    }
+  };
+  const onAddExam = async () => {
+    try {
+      setIsLoading(true);
+      await axios.post(`/api/courses/${courseId}/chapters/${chapterId}/exam`);
+      toast.success("Chapter Exam Added");
+
       router.refresh();
     } catch (error) {
       toast.error("Something went Wrong");
@@ -66,6 +81,16 @@ export const ChapterActions = ({
       >
         {isPublished ? "Unpublish" : "Publish"}
       </Button>
+      {!hasExam && (
+        <Button
+          onClick={onAddExam}
+          disabled={disabled || isLoading}
+          variant={"outline"}
+          size={"sm"}
+        >
+          Add Exam
+        </Button>
+      )}
       <ConfirmModal onConfirm={onDelete}>
         <Button disabled={isLoading} size={"sm"}>
           <Trash className="h-4 w-4" />

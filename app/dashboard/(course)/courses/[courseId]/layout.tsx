@@ -28,6 +28,7 @@ async function CourseLayout({
           isPublished: true,
         },
         include: {
+          exam: {},
           userProgress: {
             where: {
               userId,
@@ -40,6 +41,7 @@ async function CourseLayout({
       },
     },
   });
+
   if (!course) redirect("/");
   const progressCount = await getProgress(userId, course.id);
   return (
