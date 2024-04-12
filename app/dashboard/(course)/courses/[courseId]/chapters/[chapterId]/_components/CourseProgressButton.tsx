@@ -13,11 +13,13 @@ interface CourseProgressButtonProps {
   courseId: string;
   nextChapterId?: string;
   isCompleted?: boolean;
+  examId: string | null;
 }
 function CourseProgressButton({
   chapterId,
   courseId,
   nextChapterId,
+  examId,
   isCompleted,
 }: CourseProgressButtonProps) {
   const router = useRouter();
@@ -31,13 +33,17 @@ function CourseProgressButton({
         `/api/courses/${courseId}/chapters/${chapterId}/progress`,
         { isCompleted: !isCompleted }
       );
-      if (!isCompleted && !nextChapterId) {
-        confetti.onOpen();
-      }
-      if (!isCompleted && nextChapterId) {
-        router.push(
-          `/dashboard/courses/${courseId}/chapters/${nextChapterId}/`
-        );
+      if (examId) {
+        router.push(`/dashboard/courses/${courseId}/exam/${examId}/`);
+      } else {
+        if (!isCompleted && !nextChapterId) {
+          confetti.onOpen();
+        }
+        if (!isCompleted && nextChapterId) {
+          router.push(
+            `/dashboard/courses/${courseId}/chapters/${nextChapterId}/`
+          );
+        }
       }
       toast.success("Progress Updated");
       router.refresh();

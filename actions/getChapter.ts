@@ -35,6 +35,9 @@ export const getChapter = async ({
         id: chapterId,
         isPublished: true,
       },
+      include: {
+        exam: true,
+      },
     });
     if (!chapter || !course) {
       throw new Error("Chapter or Course not found");

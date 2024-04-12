@@ -59,6 +59,7 @@ async function Page({
       <div className="flex flex-col max-w-4xl mx-auto pb-20">
         <div className="p-4">
           <VideoPlayer
+            examId={chapter.exam?.id || null}
             videoUrl={chapter.videoUrl!}
             chapterId={params.chapterId}
             title={chapter.title}
@@ -79,6 +80,7 @@ async function Page({
           ) : purchase?.isActivated ? (
             <>
               <CourseProgressButton
+                examId={chapter.exam?.id || null}
                 chapterId={params.chapterId}
                 courseId={params.courseId}
                 nextChapterId={nextChapter?.id}

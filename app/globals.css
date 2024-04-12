@@ -69,6 +69,28 @@ body,
     --ring: 212.7 26.8% 83.9%;
   }
 }
+#circle-grade {
+  display: flex;
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+
+  background: conic-gradient(lightgreen var(--progress), gray 0deg);
+  font-size: 0;
+}
+
+#circle-grade::after {
+  content: attr(data-progress) "/" attr(data-total-score);
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  width: 100%;
+  margin: 10px;
+  border-radius: 50%;
+  background: white;
+  font-size: 2rem;
+  text-align: center;
+}
 
 @layer base {
   * {

@@ -1,13 +1,29 @@
 import { db } from "@/lib/db";
 import { auth } from "@clerk/nextjs";
-import { Chapter, Course, UserProgress } from "@prisma/client";
+import {
+  Chapter,
+  Course,
+  Exam,
+  ExamProgress,
+  Question,
+  UserProgress,
+} from "@prisma/client";
 import { redirect } from "next/navigation";
 import CourseSidebarItem from "./CourseSidebarItem";
 import CourseProgress from "@/components/CourseProgress";
+import CourseSidebarExam from "./CourseSidebarExam";
 
 interface CourseSidebarProps {
   course: Course & {
-    chapters: (Chapter & { userProgress: UserProgress[] | null })[];
+    chapters: (Chapter & {
+      userProgress: UserProgress[] | null;
+      exam:
+        | (Exam & {
+            questions: Question[];
+            examProgress: ExamProgress[];
+          })
+        | null;
+    })[];
   };
   progressCount: number;
 }
@@ -34,14 +50,26 @@ async function CourseSidebar({ course, progressCount }: CourseSidebarProps) {
       </div>
       <div className="flex flex-col w-full">
         {course.chapters.map((chapter) => (
-          <CourseSidebarItem
-            key={chapter.id}
-            id={chapter.id}
-            label={chapter.title}
-            isCompleted={!!chapter.userProgress?.[0]?.isCompleted}
-            courseId={course.id}
-            isLocked={!chapter.isFree && !purchase?.isActivated}
-          />
+          <>
+            <CourseSidebarItem
+              key={chapter.id}
+              id={chapter.id}
+              label={chapter.title}
+              isCompleted={!!chapter.userProgress?.[0]?.isCompleted}
+              courseId={course.id}
+              isLocked={!chapter.isFree && !purchase?.isActivated}
+            />
+            {chapter.exam && chapter.exam.questions.length > 0 && (
+              <CourseSidebarExam
+                key={chapter.exam.id}
+                id={chapter.exam.id}
+                label={`${chapter.title} exam`}
+                isCompleted={chapter.exam.examProgress[0].isCompleted}
+                courseId={course.id}
+                isLocked={!chapter.isFree && !purchase?.isActivated}
+              />
+            )}
+          </>
         ))}
       </div>
     </div>

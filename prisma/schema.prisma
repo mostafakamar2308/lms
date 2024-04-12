@@ -83,6 +83,8 @@ model Exam {
   id        String     @id @default(uuid())
   questions Question[]
 
+  examProgress ExamProgress[]
+
   chapterId String  @unique
   chapter   Chapter @relation(fields: [chapterId], references: [id], onDelete: Cascade)
 
@@ -107,6 +109,37 @@ model MuxData {
 
   chapterId String  @unique
   chapter   Chapter @relation(fields: [chapterId], references: [id], onDelete: Cascade)
+}
+
+model ExamProgress {
+  id     String @id @default(uuid())
+  userId String
+
+  examId String
+  exam   Exam   @relation(fields: [examId], references: [id], onDelete: Cascade)
+
+  isCompleted Boolean @default(false)
+  grades      Grade[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([userId, examId])
+  @@index([examId])
+}
+
+model Grade {
+  id     String @id @default(uuid())
+  userId String
+
+  grade     Int
+  createdAt DateTime @default(now())
+
+  examProgressId String
+  examProgress   ExamProgress @relation(fields: [examProgressId], references: [id], onDelete: Cascade)
+  updatedAt      DateTime     @updatedAt
+
+  @@index([examProgressId])
 }
 
 model UserProgress {

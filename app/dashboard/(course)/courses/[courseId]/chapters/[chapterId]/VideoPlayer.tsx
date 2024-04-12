@@ -21,11 +21,13 @@ interface VideoPlayerProps {
   playbackId?: string;
   isLocked: boolean;
   completeOnEnd: boolean;
+  examId: string | null;
 }
 function VideoPlayer({
   videoUrl,
   chapterId,
   title,
+  examId,
   courseId,
   nextChapterId,
   playbackId,
@@ -40,15 +42,19 @@ function VideoPlayer({
         `/api/courses/${courseId}/chapters/${chapterId}/progress`,
         { isCompleted: true }
       );
-      if (!nextChapterId) {
-        confetti.onOpen();
-      }
-      toast.success("Video Ended");
-      router.refresh();
-      if (nextChapterId) {
-        router.push(
-          `/dashboard/courses/${courseId}/chapters/${nextChapterId}/`
-        );
+      if (examId) {
+        router.push(`/dashboard/courses/${courseId}/exam/${examId}/`);
+      } else {
+        if (!nextChapterId) {
+          confetti.onOpen();
+        }
+        toast.success("Video Ended");
+        router.refresh();
+        if (nextChapterId) {
+          router.push(
+            `/dashboard/courses/${courseId}/chapters/${nextChapterId}/`
+          );
+        }
       }
     } catch (error) {
       toast.error("Something went wrong");
