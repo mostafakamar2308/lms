@@ -85,13 +85,15 @@ async function Page({
               data-progress={exam.examProgress[0].grades[0].grade}
               id="circle-grade"
               data-total-score={exam.questions.length}
-              style={{
-                "--progress": `${
-                  (exam.examProgress[0].grades[0].grade /
-                    exam.questions.length) *
-                  360
-                }deg`,
-              }}
+              style={
+                {
+                  "--progress": `${
+                    (exam.examProgress[0].grades[0].grade /
+                      exam.questions.length) *
+                    360
+                  }deg`,
+                } as React.CSSProperties
+              }
             >
               {" "}
               {exam.examProgress[0].grades[0].grade} / {exam.questions.length}
@@ -105,11 +107,13 @@ async function Page({
               data-progress={highestGrade}
               id="circle-grade"
               data-total-score={exam.questions.length}
-              style={{
-                "--progress": `${
-                  (highestGrade / exam.questions.length) * 360
-                }deg`,
-              }}
+              style={
+                {
+                  "--progress": `${
+                    (highestGrade / exam.questions.length) * 360
+                  }deg`,
+                } as React.CSSProperties
+              }
             >
               {" "}
               {highestGrade} / {exam.questions.length}

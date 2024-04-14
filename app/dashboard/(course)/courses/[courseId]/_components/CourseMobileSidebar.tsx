@@ -1,10 +1,25 @@
-import { Chapter, Course, UserProgress } from "@prisma/client";
+import {
+  Chapter,
+  Course,
+  Exam,
+  ExamProgress,
+  Question,
+  UserProgress,
+} from "@prisma/client";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Menu } from "lucide-react";
 import CourseSidebar from "./CourseSidebar";
 interface CourseMobileSidebarProps {
   course: Course & {
-    chapters: (Chapter & { userProgress: UserProgress[] | null })[];
+    chapters: (Chapter & {
+      userProgress: UserProgress[] | null;
+      exam:
+        | (Exam & {
+            questions: Question[];
+            examProgress: ExamProgress[];
+          })
+        | null;
+    })[];
   };
   progressCount: number;
 }
