@@ -3,7 +3,7 @@ import UserCard from "@/components/UserCard";
 import { Button } from "@/components/ui/button";
 import { db } from "@/lib/db";
 import { auth, clerkClient } from "@clerk/nextjs";
-import { ArrowLeft, PlusCircle } from "lucide-react";
+import { ArrowLeft, ArrowRight, PlusCircle } from "lucide-react";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 
@@ -47,16 +47,16 @@ async function page({ params }: { params: { courseId: string } }) {
         href={`/dashboard/teacher/students`}
         className="flex items-center text-sm hover:opacity-75 transition mb-6 "
       >
-        <ArrowLeft className="h-4 w-4 mr-2" />
-        Back to Students page
+        <ArrowRight className="h-4 w-4 ml-2" />
+        إلي صفحة الطلاب
       </Link>
       <div className="flex justify-between flex-wrap md:flex-nowrap gap-1 mb-4">
         <h1 className="text-xl font-medium ">
-          Activated Students in <span className="">{courseOwner.title}</span>
+          الطلاب في كورس <span className="">{courseOwner.title}</span>
         </h1>
         <Link href={`/dashboard/teacher/students/${params.courseId}/add`}>
           <Button className="flex items-center gap-2">
-            <PlusCircle className="h-4 w-4 text-white" /> Add New Student
+            <PlusCircle className="h-4 w-4 text-white" /> أضف طالب جديد
           </Button>
         </Link>
       </div>
@@ -71,7 +71,7 @@ async function page({ params }: { params: { courseId: string } }) {
       </div>
       {users.length === 0 && (
         <h2 className="text-slate-700 text-center">
-          No active Students Right now!
+          لا يوجد طلاب لهذا الكورس !
         </h2>
       )}
     </div>

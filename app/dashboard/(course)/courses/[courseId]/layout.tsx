@@ -54,14 +54,14 @@ async function CourseLayout({
   if (!course) redirect("/");
   const progressCount = await getProgress(userId, course.id);
   return (
-    <div className="h-full">
-      <div className="h-[80px] md:pl-80 w-full fixed inset-y-0 z-50 ">
+    <div className="h-full" dir="rtl">
+      <div className="h-[80px] md:pr-80 w-full fixed inset-y-0 z-50 ">
         <CourseNavBar course={course} progressCount={progressCount} />
       </div>
       <div className="hidden md:flex h-full w-80 flex-col fixed inset-y-0 z-50">
         <CourseSidebar course={course} progressCount={progressCount} />
       </div>
-      <main className="md:pl-80 h-full">
+      <main className="md:pr-80 h-full">
         <Suspense fallback={<Loading />}>{children}</Suspense>
       </main>
     </div>

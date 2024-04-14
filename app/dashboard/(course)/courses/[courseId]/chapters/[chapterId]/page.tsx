@@ -39,20 +39,17 @@ async function Page({
   return (
     <div className="pt-20">
       {userProgress?.isCompleted && (
-        <Banner
-          label="You already completed this chapter"
-          variant={"success"}
-        />
+        <Banner label="لقد أنهيت بالفعل مشاهدة الحصة" variant={"success"} />
       )}
       {!isPurchased && (
         <Banner
-          label="You need to purchase this course to watch this chapter"
+          label="يجب أن تشتري الكورس حتي تستطيع مشاهدة الحصة"
           variant={"warning"}
         />
       )}
       {isPurchased && !isActivated && (
         <Banner
-          label="Wait for Activating this course from the admins"
+          label="ننتظر تفعيل اشتراكك من الادمنز، برجاء الانتظار"
           variant={"warning"}
         />
       )}

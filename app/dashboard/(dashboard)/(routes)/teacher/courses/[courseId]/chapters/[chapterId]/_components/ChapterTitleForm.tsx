@@ -63,11 +63,11 @@ function ChapterTitleForm({
       <div className="font-medium flex items-center justify-between">
         Chapter Title{" "}
         <Button onClick={toggleEdit} variant={"ghost"}>
-          {isEditing && "Cancel"}{" "}
+          {isEditing && "ألغ"}{" "}
           {!isEditing && (
             <>
-              <Pencil className="h-4 w-4 mr-2" />
-              <>Edit Title</>
+              <Pencil className="h-4 w-4 ml-2" />
+              <>عدل العنوان</>
             </>
           )}
         </Button>
@@ -88,7 +88,7 @@ function ChapterTitleForm({
                   <FormControl>
                     <Input
                       disabled={isSubmitting}
-                      placeholder="e.g. 'Chapter 1: Introduction'"
+                      placeholder="e.g. 'الماضي المستمر'"
                       {...field}
                     />
                   </FormControl>
@@ -96,9 +96,9 @@ function ChapterTitleForm({
                 </FormItem>
               )}
             />
-            <div className="flex items-center gap-x-2">
+            <div className="flex items-center justify-end gap-x-2">
               <Button disabled={!isValid || isSubmitting} type="submit">
-                Save
+                حفظ
               </Button>
             </div>
           </form>

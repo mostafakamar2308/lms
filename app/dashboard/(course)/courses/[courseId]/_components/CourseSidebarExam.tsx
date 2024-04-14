@@ -38,7 +38,7 @@ function CourseSidebarExam({
       onClick={onClick}
       type="button"
       className={cn(
-        "flex items-center gap-x-2 font-[500] pl-6 transition-all text-slate-500 hover:text-slate-600 text-sm hover:bg-slate-300/20 ",
+        "flex items-center gap-x-2 font-[500] pr-6 transition-all text-slate-500 hover:text-slate-600 text-sm hover:bg-slate-300/20 ",
         isCompleted && "text-emerald-700 bg-slate-200 hover:text-emerald-700",
         isActive &&
           "text-slate-700 bg-slate-200/20 hover:bg-slate-200/20 hover:text-slate-700",
@@ -58,7 +58,7 @@ function CourseSidebarExam({
       </div>
       <div
         className={cn(
-          "ml-auto opacity-0 border-2 border-slate-700 h-full transition-all ",
+          "mr-auto opacity-0 border-2 border-slate-700 h-full transition-all ",
           isActive && "opacity-100",
           isCompleted && "border-emerald-700"
         )}

@@ -57,7 +57,7 @@ const ChapterPage = async ({
       {!chapter.isPublished && (
         <Banner
           variant={"warning"}
-          label="This chapter isn't published it will not be visible in this course"
+          label="هذه الحصة لم يتم نشرها، ولن تظهر لطلاب الكورس"
         />
       )}
       <div className="p-6">
@@ -67,15 +67,22 @@ const ChapterPage = async ({
               href={`/dashboard/teacher/courses/${params.courseId}`}
               className="flex items-center text-sm hover:opacity-75 transition mb-6 "
             >
-              <ArrowLeft className="h-4 w-4 mr-2" />
-              Back to course Setup
+              <ArrowLeft className="h-4 w-4 ml-2" />
+              ارجع الي الكورس
             </Link>
             <div className="flex items-center justify-between w-full">
               <div className="flex flex-col gap-y-2">
-                <h1 className="text-2xl font-medium">Chapter Creation</h1>
-                <span className="text-sm text-slate-700">
-                  Complete All fields {completionText}
-                </span>
+                <h1 className="text-2xl font-medium"></h1>
+                {completionText !== "3/3" && (
+                  <span className="text-sm text-slate-700">
+                    أكمل تفاصيل الحصة {completionText}
+                  </span>
+                )}
+                {completionText === "3/3" && (
+                  <span className="text-sm text-slate-700">
+                    أكملت جميع تفاصيل الحصة، ويمكنك الان نشرها
+                  </span>
+                )}
               </div>
               <ChapterActions
                 hasExam={hasExam}
@@ -92,7 +99,7 @@ const ChapterPage = async ({
             <div>
               <div className="flex items-center gap-x-2 ">
                 <IconBadge icon={LayoutDashboard} />
-                <h2 className="text-xl">Customize your chapter</h2>
+                <h2 className="text-xl">عدل تفاصيل الحصة</h2>
               </div>
               <ChapterTitleForm
                 initialData={chapter}
@@ -107,7 +114,7 @@ const ChapterPage = async ({
             </div>
             <div className="flex items-center gap-x-2">
               <IconBadge icon={Eye} />
-              <h2 className="text-xl">Access Setting</h2>
+              <h2 className="text-xl">صلاحيات الحصة</h2>
             </div>
             <ChapterAccessForm
               initialData={chapter}
@@ -118,7 +125,7 @@ const ChapterPage = async ({
           <div>
             <div className="flex items-center gap-x-2 ">
               <IconBadge icon={Video} />
-              <h2 className="text-xl">Add a video</h2>
+              <h2 className="text-xl">أضف فيديو الحصة</h2>
             </div>
             <ChapterVideoForm
               initialData={chapter}
@@ -132,7 +139,7 @@ const ChapterPage = async ({
             <div className="flex items-center justify-between w-full">
               <div className="flex items-center gap-x-2 mt-4 ">
                 <IconBadge icon={BookCheck} />
-                <h2 className="text-xl">Edit The Exam</h2>
+                <h2 className="text-xl">عدل الامتحان</h2>
               </div>
               <ExamActions
                 courseId={params.courseId}

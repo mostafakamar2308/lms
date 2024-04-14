@@ -67,8 +67,8 @@ function ActivatedUserCard({
             onClick={deactivate}
             className="flex gap-2 items-center text-xs"
           >
+            ألغ التفعيل
             <ArrowDownLeftFromCircle className="w-4 h-4 text-slate-200" />
-            Deactivate
           </Button>
         </div>
       </CardContent>

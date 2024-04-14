@@ -47,7 +47,7 @@ function QuestionActions({
         courseId={courseId}
         chapterId={chapterId}
       >
-        <Button variant={"outline"} size={"xs"}>
+        <Button className="ml-2" variant={"outline"} size={"xs"}>
           <Pencil className="w-4 h-4" />
         </Button>
       </EditQuestionModal>

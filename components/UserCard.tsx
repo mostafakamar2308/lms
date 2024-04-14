@@ -90,7 +90,7 @@ function UserCard({
             className="flex gap-2 items-center text-xs"
           >
             <Check className="w-4 h-4 text-slate-200" />
-            Activate
+            فعل الاشتراك
           </Button>
         </div>
       </CardContent>

@@ -67,17 +67,24 @@ const CoursePage = async ({ params }: { params: { courseId: string } }) => {
       {!course.isPublished && (
         <Banner
           variant={"warning"}
-          label="This course isn't published it will not be visible to your students"
+          label="لم يتم نشر هذا الكورس بعد، بالتالى لن يظهر لطلابك"
         />
       )}
       <div className="p-6">
         <div className="flex items-center justify-between">
           <div className="flex flex-col gap-y-2 ">
-            <h1 className="text-2xl font-medium">Course Setup</h1>
-            <span className="text-sm text-slate-700">
-              You are missing {totalFields - completedFields} fields from
-              required {totalFields} fields
-            </span>
+            <h1 className="text-2xl font-medium">تفاصيل الكورس</h1>
+            {completedFields < totalFields && (
+              <span className="text-sm text-slate-700">
+                ينقصك اكمال {totalFields - completedFields} من أصل {totalFields}{" "}
+                حقول اجبارية
+              </span>
+            )}
+            {completedFields === totalFields && (
+              <span className="text-sm text-slate-700">
+                أكملت جميع تفاصيل الكورس يمكنك ان تنشره لطلابك الان ❤️
+              </span>
+            )}
           </div>
           <CourseActions
             disabled={!isComplete}
@@ -89,7 +96,7 @@ const CoursePage = async ({ params }: { params: { courseId: string } }) => {
           <div>
             <div className="flex items-center gap-x-2">
               <IconBadge icon={LayoutDashboard} />
-              <h2 className="text-xl">Customize your course</h2>
+              <h2 className="text-xl">عدل تفاصيل الكورس</h2>
             </div>
             <TitleForm initialData={course} courseId={course.id} />
             <DescriptionForm initialData={course} courseId={course.id} />
@@ -107,21 +114,21 @@ const CoursePage = async ({ params }: { params: { courseId: string } }) => {
             <div className="">
               <div className="flex items-center gap-x-2">
                 <IconBadge icon={ListChecks} />
-                <h2 className="text-xl">Course Chapters</h2>
+                <h2 className="text-xl">حصص الكورس</h2>
               </div>
               <ChaptersForm initialData={course} courseId={course.id} />
             </div>
             <div>
               <div className="flex items-center gap-x-2">
                 <IconBadge icon={CircleDollarSign} />
-                <h2 className="text-xl">Sell your Course</h2>
+                <h2 className="text-xl">سعر الكورس</h2>
               </div>
               <PriceForm initialData={course} courseId={course.id} />
             </div>
             <div>
               <div className="flex items-center gap-x-2">
                 <IconBadge icon={File} />
-                <h2 className="text-xl">Resources & Attachments</h2>
+                <h2 className="text-xl">المصادر والملفات</h2>
               </div>
               <AttachmentForm initialData={course} courseId={course.id} />
             </div>

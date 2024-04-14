@@ -74,7 +74,7 @@ function QuestionGroup({ questions, examId }: QuestionGroupProps) {
         onClick={onSubmit}
         className="px-8 mx-auto text-lg block"
       >
-        Finish Exam
+        أنهى الامتحان
       </Button>
     </div>
   );

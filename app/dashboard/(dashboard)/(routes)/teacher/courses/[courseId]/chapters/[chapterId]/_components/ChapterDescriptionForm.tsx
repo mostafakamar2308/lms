@@ -63,13 +63,13 @@ function ChapterDescriptionForm({
   return (
     <div className="mt-6 bg-slate-100 rounded-md p-4">
       <div className="font-medium flex items-center justify-between">
-        Chapter Description{" "}
+        وصف الحصة{" "}
         <Button onClick={toggleEdit} variant={"ghost"}>
-          {isEditing && "Cancel"}{" "}
+          {isEditing && "ألغ"}{" "}
           {!isEditing && (
             <>
-              <Pencil className="h-4 w-4 mr-2" />
-              <>Edit Description</>
+              <Pencil className="h-4 w-4 ml-2" />
+              <>عدل الوصف</>
             </>
           )}
         </Button>
@@ -81,7 +81,7 @@ function ChapterDescriptionForm({
             !initialData.description && "text-slate-500 italic"
           )}
         >
-          {!initialData.description && "No description"}
+          {!initialData.description && "..."}
           {initialData.description && (
             <Preview value={initialData.description} />
           )}
@@ -104,9 +104,9 @@ function ChapterDescriptionForm({
                 </FormItem>
               )}
             />
-            <div className="flex items-center gap-x-2">
+            <div className="flex items-center gap-x-2 justify-end">
               <Button disabled={!isValid || isSubmitting} type="submit">
-                Save
+                حفظ
               </Button>
             </div>
           </form>

@@ -53,13 +53,13 @@ function TitleForm({ initialData, courseId }: TitleFormProps) {
   return (
     <div className="mt-6 bg-slate-100 rounded-md p-4">
       <div className="font-medium flex items-center justify-between">
-        Course Title{" "}
+        عنوان الكورس{" "}
         <Button onClick={toggleEdit} variant={"ghost"}>
-          {isEditing && "Cancel"}{" "}
+          {isEditing && "ألغ التعديل"}{" "}
           {!isEditing && (
             <>
-              <Pencil className="h-4 w-4 mr-2" />
-              <>Edit Title</>
+              <Pencil className="h-4 w-4 ml-2" />
+              <>عدل العنوان</>
             </>
           )}
         </Button>
@@ -80,7 +80,7 @@ function TitleForm({ initialData, courseId }: TitleFormProps) {
                   <FormControl>
                     <Input
                       disabled={isSubmitting}
-                      placeholder="e.g. 'Advanced Web Dev'"
+                      placeholder="e.g. 'الماضى المستمر'"
                       {...field}
                     />
                   </FormControl>
@@ -88,9 +88,9 @@ function TitleForm({ initialData, courseId }: TitleFormProps) {
                 </FormItem>
               )}
             />
-            <div className="flex items-center gap-x-2">
+            <div className="flex items-center justify-end gap-x-2">
               <Button disabled={!isValid || isSubmitting} type="submit">
-                Save
+                حفظ
               </Button>
             </div>
           </form>

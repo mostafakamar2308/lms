@@ -54,11 +54,11 @@ function AttachmentForm({ initialData, courseId }: AttachmentFormProps) {
       <div className="font-medium flex items-center justify-between">
         Course Attachment{" "}
         <Button onClick={toggleEdit} variant={"ghost"}>
-          {isEditing && "Cancel"}{" "}
+          {isEditing && "ألغ"}{" "}
           {!isEditing && (
             <>
-              <PlusCircle className="h-4 w-4 mr-2" />
-              Add an Attachment
+              <PlusCircle className="h-4 w-4 ml-2" />
+              أضف ملف
             </>
           )}{" "}
         </Button>
@@ -67,7 +67,7 @@ function AttachmentForm({ initialData, courseId }: AttachmentFormProps) {
         <>
           {initialData.attachments.length === 0 && (
             <p className="text-sm text-slate-500 mt-2 italic">
-              No attachments yet
+              لا يوجد ملفات لهذا الكورس
             </p>
           )}
           {initialData.attachments.length > 0 && (
@@ -87,7 +87,7 @@ function AttachmentForm({ initialData, courseId }: AttachmentFormProps) {
                   {deletingId !== attachment.id && (
                     <button
                       onClick={() => onDelete(attachment.id)}
-                      className="ml-auto hover:opacit-75 transition"
+                      className="mr-auto hover:opacit-75 transition"
                     >
                       <X className="h-5 w-5 " />
                     </button>

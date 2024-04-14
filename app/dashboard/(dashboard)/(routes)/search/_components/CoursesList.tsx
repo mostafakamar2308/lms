@@ -1,5 +1,5 @@
 import { Category, Course } from "@prisma/client";
-import CourseCard from "@/components/CourseCard";
+import CourseCard from "@/components/CourseCard copy";
 
 type CoursesProps = Course & {
   category: Category | null;
@@ -17,7 +17,7 @@ function CoursesList({ items }: CourseProps) {
     <div>
       {items.length === 0 && (
         <div className="text-center mt-2 text-sm text-muted-foreground">
-          No courses Were found
+          لم تشترك في أي كورسات بعد
         </div>
       )}
       <div className="grid sm:grid-cols-2 md:grid-cols2 lg:grid-cols-3 xl:grid-cols-4 gap-4">

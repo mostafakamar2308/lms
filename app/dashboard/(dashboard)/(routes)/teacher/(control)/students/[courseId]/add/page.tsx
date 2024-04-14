@@ -3,7 +3,7 @@ import SearchStudent from "./_components/SearchStudent";
 import { auth } from "@clerk/nextjs";
 import { db } from "@/lib/db";
 import Link from "next/link";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, ArrowRight } from "lucide-react";
 
 async function Page({ params }: { params: { courseId: string } }) {
   const { userId } = auth();
@@ -26,10 +26,10 @@ async function Page({ params }: { params: { courseId: string } }) {
         href={`/dashboard/teacher/students/${params.courseId}`}
         className="flex items-center text-sm hover:opacity-75 transition mb-6 "
       >
-        <ArrowLeft className="h-4 w-4 mr-2" />
-        Back to Course Students
+        <ArrowRight className="h-4 w-4 ml-2" />
+        إلي صفحة الكورس
       </Link>
-      <h1 className="text-xl mb-4 font-medium">Add New Students</h1>
+      <h1 className="text-xl mb-4 font-medium">أضف طالب جديد</h1>
       <div>
         <SearchStudent courseId={params.courseId} />
       </div>

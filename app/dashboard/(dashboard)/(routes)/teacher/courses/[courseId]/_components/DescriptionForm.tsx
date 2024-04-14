@@ -53,13 +53,13 @@ function DescriptionForm({ initialData, courseId }: DescriptionFormProps) {
   return (
     <div className="mt-6 bg-slate-100 rounded-md p-4">
       <div className="font-medium flex items-center justify-between">
-        Course Description{" "}
+        وصف الكورس{" "}
         <Button onClick={toggleEdit} variant={"ghost"}>
-          {isEditing && "Cancel"}{" "}
+          {isEditing && "ألغ التعديل"}{" "}
           {!isEditing && (
             <>
-              <Pencil className="h-4 w-4 mr-2" />
-              <>Edit Description</>
+              <Pencil className="h-4 w-4 ml-2" />
+              <>عدل الوصف</>
             </>
           )}
         </Button>
@@ -71,7 +71,7 @@ function DescriptionForm({ initialData, courseId }: DescriptionFormProps) {
             !initialData.description && "text-slate-500 italic"
           )}
         >
-          {initialData.description || "No description"}
+          {initialData.description || "لا يوجد وصف"}
         </p>
       ) : (
         <Form {...form}>
@@ -87,7 +87,7 @@ function DescriptionForm({ initialData, courseId }: DescriptionFormProps) {
                   <FormControl>
                     <Textarea
                       disabled={isSubmitting}
-                      placeholder="e.g. 'This course is about ...'"
+                      placeholder="e.g. 'سنقوم بشرح ...'"
                       {...field}
                     />
                   </FormControl>
@@ -95,9 +95,9 @@ function DescriptionForm({ initialData, courseId }: DescriptionFormProps) {
                 </FormItem>
               )}
             />
-            <div className="flex items-center gap-x-2">
+            <div className="flex items-center justify-end gap-x-2">
               <Button disabled={!isValid || isSubmitting} type="submit">
-                Save
+                حفظ
               </Button>
             </div>
           </form>

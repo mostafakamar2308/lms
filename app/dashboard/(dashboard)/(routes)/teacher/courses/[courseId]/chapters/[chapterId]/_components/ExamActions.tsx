@@ -14,7 +14,7 @@ function ExamActions({
 }) {
   return (
     <NewQuestionModal examId={examId} courseId={courseId} chapterId={chapterId}>
-      <Button className="mt-6">AddQuestion</Button>
+      <Button className="mt-8">أضف سؤال</Button>
     </NewQuestionModal>
   );
 }

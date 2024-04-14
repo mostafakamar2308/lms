@@ -51,7 +51,7 @@ async function Page({
   if (!exam || exam.questions.length === 0) {
     return redirect("/dashboard");
   }
-  const highestGrade = exam.examProgress[0].isCompleted
+  const highestGrade = exam.examProgress[0]?.isCompleted
     ? exam.examProgress[0].grades
         .map((grade) => grade)
         .sort((a, b) => b.grade - a.grade)[0].grade
@@ -77,12 +77,10 @@ async function Page({
 
   return (
     <div className="pt-20">
-      {exam.examProgress[0].isCompleted && (
+      {exam.examProgress[0]?.isCompleted && (
         <div className="p-8 grid space-y-8">
           <div className="flex items-center gap-10 justify-between px-8">
-            <h3 className="text-4xl text-emerald-700 font-semibold">
-              Your grade
-            </h3>
+            <h3 className="text-4xl text-emerald-700 font-semibold">درجتك </h3>
             <div
               data-progress={exam.examProgress[0].grades[0].grade}
               id="circle-grade"
@@ -101,7 +99,7 @@ async function Page({
           </div>
           <div className="flex items-center gap-10 justify-between px-8">
             <h3 className="text-4xl text-emerald-700 font-semibold">
-              Your Highest grade
+              أعلي درجاتك
             </h3>
             <div
               data-progress={highestGrade}
@@ -117,21 +115,21 @@ async function Page({
               {highestGrade} / {exam.questions.length}
             </div>
           </div>
-          <div className="flex justify-center space-x-4">
+          <div className="flex justify-center space-x-4 gap-4">
             <NewAttempt userProgress={exam.examProgress[0]} />{" "}
             {nextChapter && (
               <Button className="px-8 py-6 text-lg">
                 <Link
                   href={`/dashboard/courses/${nextChapter?.courseId}/chapters/${nextChapter?.id}`}
                 >
-                  Go to Next Chapter
+                  اذهب الي الحصة التالية
                 </Link>
               </Button>
             )}
           </div>
         </div>
       )}
-      {!exam.examProgress[0].isCompleted && (
+      {!exam.examProgress[0]?.isCompleted && (
         <QuestionGroup
           examId={exam.id}
           questions={exam.questions.map((question) => ({

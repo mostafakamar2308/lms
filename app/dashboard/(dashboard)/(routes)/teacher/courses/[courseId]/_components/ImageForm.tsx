@@ -39,19 +39,19 @@ function ImageForm({ initialData, courseId }: ImageFormProps) {
   return (
     <div className="mt-6 bg-slate-100 rounded-md p-4">
       <div className="font-medium flex items-center justify-between">
-        Course Image{" "}
+        صورة الكورس{" "}
         <Button onClick={toggleEdit} variant={"ghost"}>
-          {isEditing && "Cancel"}{" "}
+          {isEditing && "ألغ التعديل"}{" "}
           {!isEditing && !initialData.imageUrl && (
             <>
-              <PlusCircle className="h-4 w-4 mr-2" />
-              Add an Image
+              <PlusCircle className="h-4 w-4 ml-2" />
+              أضف صورة
             </>
           )}{" "}
           {!isEditing && initialData.imageUrl && (
             <>
-              <Pencil className="h-4 w-4 mr-2" />
-              <>Edit Image</>
+              <Pencil className="h-4 w-4 ml-2" />
+              <>غير الصورة</>
             </>
           )}
         </Button>
@@ -81,9 +81,6 @@ function ImageForm({ initialData, courseId }: ImageFormProps) {
               }
             }}
           />
-          <div className="text-xs text-muted-foreground mt-4">
-            16:9 aspect ratio recommended
-          </div>
         </div>
       )}
     </div>

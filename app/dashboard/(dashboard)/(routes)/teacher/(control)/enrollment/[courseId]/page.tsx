@@ -2,7 +2,7 @@ import UserCard from "@/components/UserCard";
 import { db } from "@/lib/db";
 import { auth } from "@clerk/nextjs";
 import { clerkClient } from "@clerk/nextjs/server";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, ArrowRight } from "lucide-react";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 
@@ -47,8 +47,8 @@ async function page({ params }: { params: { courseId: string } }) {
         href={`/dashboard/teacher/enrollment`}
         className="flex items-center text-sm hover:opacity-75 transition mb-6 "
       >
-        <ArrowLeft className="h-4 w-4 mr-2" />
-        Back to Enrollment page
+        <ArrowRight className="h-4 w-4 ml-2" />
+        عد لصفحة طلبات الانضمام
       </Link>
       <div className=" grid md:grid-cols-2 grid-cols-1 gap-3">
         {users.map((user) => (
@@ -58,7 +58,7 @@ async function page({ params }: { params: { courseId: string } }) {
       <div>
         {users.length === 0 && (
           <div className="text-xl text-center text-slate-700 ">
-            No New enrollments Right now!
+            لا يوجد طلبات جديدة في الوقت الحالي !
           </div>
         )}
       </div>

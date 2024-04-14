@@ -39,7 +39,7 @@ export const StudentColumns: ColumnDef<CoursesWithStudents>[] = [
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
-          Students
+          الطلاب
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
       );
@@ -49,7 +49,7 @@ export const StudentColumns: ColumnDef<CoursesWithStudents>[] = [
 
       return (
         <div className="ml-4">
-          {students} {students === 1 ? "Student" : "Students"}
+          {students} {students === 1 ? "طالب" : "طلاب"}
         </div>
       );
     },
@@ -70,7 +70,7 @@ export const StudentColumns: ColumnDef<CoursesWithStudents>[] = [
             <Link href={`/dashboard/teacher/students/${id}`}>
               <DropdownMenuItem className="flex items-center p-2 bg-white border rounded-md hover:outline-none hover:bg-white/90">
                 <Pencil className="h-4 w-4 mr-2" />
-                Course Students
+                طلاب الكورس
               </DropdownMenuItem>
             </Link>
           </DropdownMenuContent>

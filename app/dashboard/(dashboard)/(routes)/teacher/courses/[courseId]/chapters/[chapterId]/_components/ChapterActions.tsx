@@ -79,7 +79,7 @@ export const ChapterActions = ({
         variant={"outline"}
         size={"sm"}
       >
-        {isPublished ? "Unpublish" : "Publish"}
+        {isPublished ? "ألغ نشر الحصة" : "انشر الحصة"}
       </Button>
       {!hasExam && (
         <Button
@@ -88,7 +88,7 @@ export const ChapterActions = ({
           variant={"outline"}
           size={"sm"}
         >
-          Add Exam
+          أضف امتحان
         </Button>
       )}
       <ConfirmModal onConfirm={onDelete}>

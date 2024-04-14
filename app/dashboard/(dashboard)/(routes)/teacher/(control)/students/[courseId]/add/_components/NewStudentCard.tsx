@@ -62,7 +62,7 @@ function NewStudentCard({
             className="flex gap-2 items-center text-xs"
           >
             <PlusCircle className="w-4 h-4 text-slate-200" />
-            Add to course
+            أضف الي الكورس
           </Button>
         </div>
       </CardContent>

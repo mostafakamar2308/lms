@@ -12,21 +12,25 @@ import SidebarItem from "./SidebarItem";
 import { usePathname } from "next/navigation";
 
 const guestRoutes = [
-  { icon: Layout, label: "Dashboard", href: "/dashboard" },
-  { icon: Compass, label: "Browse", href: "/dashboard/search" },
+  { icon: Layout, label: "كورساتى", href: "/dashboard" },
+  { icon: Compass, label: "تصفح الكورسات", href: "/dashboard/search" },
 ];
 
 const teacherRoutes = [
-  { icon: List, label: "Courses", href: "/dashboard/teacher/courses" },
-  { icon: BarChart, label: "Analytics", href: "/dashboard/teacher/analytics" },
+  { icon: List, label: "الكورسات", href: "/dashboard/teacher/courses" },
+  {
+    icon: BarChart,
+    label: "تحليل البيانات",
+    href: "/dashboard/teacher/analytics",
+  },
   {
     icon: Handshake,
-    label: "Enrollment",
+    label: "طلبات الانضمام",
     href: "/dashboard/teacher/enrollment",
   },
   {
     icon: SquareUserRound,
-    label: "Students",
+    label: "الطلاب",
     href: "/dashboard/teacher/students",
   },
 ];

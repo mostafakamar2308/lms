@@ -14,7 +14,7 @@ function CourseMobileSidebar({
 }: CourseMobileSidebarProps) {
   return (
     <Sheet>
-      <SheetTrigger className="md:hidden pr-4 hover:opacity-75 transition">
+      <SheetTrigger className="md:hidden pl-4 hover:opacity-75 transition">
         <Menu />
       </SheetTrigger>
       <SheetContent className="p-0 bg-white w-72" side={"left"}>

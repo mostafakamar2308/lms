@@ -21,16 +21,18 @@ function ConfirmModal({ children, onConfirm }: ConfirmModalProps) {
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>{children}</AlertDialogTrigger>
-      <AlertDialogContent>
+      <AlertDialogContent dir="rtl">
         <AlertDialogHeader>
-          <AlertDialogTitle>Are you sure?</AlertDialogTitle>
-          <AlertDialogDescription>
-            This action cannot be undone
+          <AlertDialogTitle className="text-right">
+            هل أنت متأكد؟
+          </AlertDialogTitle>
+          <AlertDialogDescription className="text-right">
+            لا يمكن التراجع...
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
-          <AlertDialogCancel>Cancel</AlertDialogCancel>
-          <AlertDialogAction onClick={onConfirm}>Continue</AlertDialogAction>
+          <AlertDialogCancel className="ml-2">ألغ</AlertDialogCancel>
+          <AlertDialogAction onClick={onConfirm}>أكمل</AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>

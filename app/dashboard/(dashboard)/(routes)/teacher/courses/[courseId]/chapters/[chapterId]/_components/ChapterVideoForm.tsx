@@ -54,14 +54,14 @@ function ChapterVideoForm({
           {isEditing && "Cancel"}{" "}
           {!isEditing && !initialData.videoUrl && (
             <>
-              <PlusCircle className="h-4 w-4 mr-2" />
-              Add a video
+              <PlusCircle className="h-4 w-4 ml-2" />
+              أضف فيديو
             </>
           )}{" "}
           {!isEditing && initialData.videoUrl && (
             <>
               <Pencil className="h-4 w-4 mr-2" />
-              <>Edit Video</>
+              <>عدل الفيديو</>
             </>
           )}
         </Button>
@@ -87,14 +87,13 @@ function ChapterVideoForm({
             }}
           />
           <div className="text-xs text-muted-foreground mt-4">
-            Upload this chapter&apos;s video
+            ارفع فيديو الحصة
           </div>
         </div>
       )}
       {initialData.videoUrl && !isEditing && (
         <div className="text-xs text-muted-foreground mt-2">
-          Videos can take a few minutes to process, refresh the page if the
-          video doesn&apos;t appear
+          قد يستغرق رفع الفيديو بعض الوقت، لا تعد تحميل الصفحة وانتظر قليلا
         </div>
       )}
     </div>

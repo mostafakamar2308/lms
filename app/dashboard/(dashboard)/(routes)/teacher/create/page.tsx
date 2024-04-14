@@ -39,12 +39,11 @@ const CreateCourse = () => {
     }
   };
   return (
-    <div className="max-w-5xl mx-auto flex md:items-center md:justify-center h-full p-6">
+    <div className="max-w-5xl  mx-auto flex md:items-center md:justify-center h-full p-6">
       <div>
-        <h1 className="text-2xl">Name your Course</h1>
-        <p className="text-sm text-slate-600">
-          What would you like to name your course? Don&apos;t worry, you can
-          change it later
+        <h1 className="text-3xl">اسم الكورس</h1>
+        <p className="text-base text-slate-600">
+          ما اسم الكورس؟ لا تقلق، يمكنك تغييره فيما بعد.
         </p>
         <Form {...form}>
           <form
@@ -56,29 +55,27 @@ const CreateCourse = () => {
               name="title"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Course title</FormLabel>
+                  <FormLabel className="text-xl">عنوان الكورس</FormLabel>
                   <FormControl>
                     <Input
                       disabled={isSubmitting}
-                      placeholder="e.g. Advanced web dev"
+                      placeholder="الانجليزي للصف الأول الثانوي"
                       {...field}
                     />
                   </FormControl>
-                  <FormDescription>
-                    What will you teach in this Course
-                  </FormDescription>
+                  <FormDescription>ما الذي ستشرحه في الكورس</FormDescription>
                   <FormMessage />
                 </FormItem>
               )}
             />
-            <div className="flex items-center gap-x-2">
+            <div className="flex items-center justify-end gap-x-2">
               <Link href={"/"}>
                 <Button variant={"ghost"} type="button">
-                  Cancel
+                  ألغ
                 </Button>
               </Link>
               <Button type="submit" disabled={!isValid || isSubmitting}>
-                Continue
+                أكمل
               </Button>
             </div>
           </form>

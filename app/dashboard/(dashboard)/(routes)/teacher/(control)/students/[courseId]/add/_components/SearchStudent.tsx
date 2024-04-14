@@ -50,7 +50,7 @@ function SearchStudent({ courseId }: { courseId: string }) {
         onChange={(e) => {
           setValue(e.target.value);
         }}
-        placeholder="Search by email..."
+        placeholder="ابحث عن طريق الميل ..."
       />
       <div className="grid p-4 grid-cols-1 md:grid-cols-2 gap-4">
         {students.map((student) => (
@@ -66,11 +66,13 @@ function SearchStudent({ courseId }: { courseId: string }) {
       )}
       {!isLoading && students.length === 0 && value.trim() === "" && (
         <h1 className="text-center mt-2 opacity-80">
-          Please, type in the Email of the student you want to enroll
+          برجاء كتابة ايميل الطالب الذي تود إضافته
         </h1>
       )}
       {!isLoading && students.length === 0 && value.trim() !== "" && (
-        <h1 className="text-center mt-2 opacity-80">No students were Found</h1>
+        <h1 className="text-center mt-2 opacity-80">
+          لا يوجد طالب بهذا الايميل
+        </h1>
       )}
     </>
   );

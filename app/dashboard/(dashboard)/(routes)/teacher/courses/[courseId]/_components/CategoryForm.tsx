@@ -58,13 +58,13 @@ function CategoryForm({ initialData, courseId, options }: CategoryFormProps) {
   return (
     <div className="mt-6 bg-slate-100 rounded-md p-4">
       <div className="font-medium flex items-center justify-between">
-        Course Category{" "}
+        لمن هذا الكورس{" "}
         <Button onClick={toggleEdit} variant={"ghost"}>
-          {isEditing && "Cancel"}{" "}
+          {isEditing && "ألغ التعديل"}{" "}
           {!isEditing && (
             <>
-              <Pencil className="h-4 w-4 mr-2" />
-              <>Edit Category</>
+              <Pencil className="h-4 w-4 ml-2" />
+              <>عدل الصف</>
             </>
           )}
         </Button>
@@ -76,7 +76,7 @@ function CategoryForm({ initialData, courseId, options }: CategoryFormProps) {
             !initialData.categoryId && "text-slate-500 italic"
           )}
         >
-          {selectedOption?.label || "No category"}
+          {selectedOption?.label || "..."}
         </p>
       ) : (
         <Form {...form}>
@@ -96,9 +96,9 @@ function CategoryForm({ initialData, courseId, options }: CategoryFormProps) {
                 </FormItem>
               )}
             />
-            <div className="flex items-center gap-x-2">
+            <div className="flex items-center justify-end gap-x-2">
               <Button disabled={!isValid || isSubmitting} type="submit">
-                Save
+                حفظ
               </Button>
             </div>
           </form>

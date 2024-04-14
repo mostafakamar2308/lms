@@ -12,9 +12,9 @@ const AnalyticsPage = async () => {
   return (
     <div className="p-6">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-        <DataCard label="Total Sales" value={totalSales} />
+        <DataCard label="عدد مرات البيع" value={totalSales} />
         <DataCard
-          label="Total Revenue"
+          label="اجمالي الدخل"
           value={totalRevenue}
           shouldFormat={true}
         />

@@ -81,13 +81,13 @@ function ChaptersForm({ initialData, courseId }: ChaptersFormProps) {
         </div>
       )}
       <div className="font-medium flex items-center justify-between">
-        Course Chapters{" "}
+        حصص الكورس{" "}
         <Button onClick={toggleCreating} variant={"ghost"}>
-          {isCreating && "Cancel"}{" "}
+          {isCreating && "ألغ الاضافة"}{" "}
           {!isCreating && (
             <>
-              <PlusCircle className="h-4 w-4 mr-2" />
-              <>ِAdd Chapter</>
+              <PlusCircle className="h-4 w-4 ml-2" />
+              <>أضف حصة</>
             </>
           )}
         </Button>
@@ -115,7 +115,7 @@ function ChaptersForm({ initialData, courseId }: ChaptersFormProps) {
               )}
             />
             <Button disabled={!isValid || isSubmitting} type="submit">
-              Create
+              أضف الحصة
             </Button>
           </form>
         </Form>
@@ -127,7 +127,7 @@ function ChaptersForm({ initialData, courseId }: ChaptersFormProps) {
             !initialData.chapters.length && "text-slate-500 italic"
           )}
         >
-          {!initialData.chapters.length && "No Chapters"}
+          {!initialData.chapters.length && "لا توجد حصص لهذا الكورس"}
           <ChaptersList
             onEdit={onEdit}
             onReorder={onReorder}
@@ -137,7 +137,7 @@ function ChaptersForm({ initialData, courseId }: ChaptersFormProps) {
       )}
       {!isCreating && (
         <p className="text-xs text-muted-foreground mt-4">
-          Drag and drop to reorder the chapters
+          حرك الحصص حتي تستطيع ترتيبها
         </p>
       )}
     </div>

@@ -67,11 +67,11 @@ function ChapterAccessForm({
       <div className="font-medium flex items-center justify-between">
         Chapter Access{" "}
         <Button onClick={toggleEdit} variant={"ghost"}>
-          {isEditing && "Cancel"}{" "}
+          {isEditing && "ألغ"}{" "}
           {!isEditing && (
             <>
-              <Pencil className="h-4 w-4 mr-2" />
-              <>Edit Access</>
+              <Pencil className="h-4 w-4 ml-2" />
+              <>عدل صلاحيات الوصول</>
             </>
           )}
         </Button>
@@ -83,10 +83,8 @@ function ChapterAccessForm({
             !initialData.isFree && "text-slate-500 italic"
           )}
         >
-          {initialData.isFree && (
-            <>This chapter is free for everyone for preview.</>
-          )}
-          {!initialData.isFree && <>This chapter is not free.</>}
+          {initialData.isFree && <>هذه الحصة مجانية لجميع الطلاب</>}
+          {!initialData.isFree && <>هذه الحصة ليست مجانية.</>}
         </div>
       ) : (
         <Form {...form}>
@@ -98,7 +96,7 @@ function ChapterAccessForm({
               control={form.control}
               name="isFree"
               render={({ field }) => (
-                <FormItem className="flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4">
+                <FormItem className="flex flex-row items-start space-x-3 gap-2 space-y-0 rounded-md border p-4">
                   <FormControl>
                     <Checkbox
                       checked={field.value}
@@ -106,18 +104,17 @@ function ChapterAccessForm({
                     />
                   </FormControl>
 
-                  <div className="space-y-1 leading-none ">
+                  <div className="space-y-1 mr-2 leading-none ">
                     <FormDescription>
-                      Check this box if you want to make the chapter free for
-                      preview
+                      اضغط علي الزر حتي تجعل الحصة مجانية لجميع الطلاب
                     </FormDescription>
                   </div>
                 </FormItem>
               )}
             />
-            <div className="flex items-center gap-x-2">
+            <div className="flex justify-end items-center gap-x-2">
               <Button disabled={!isValid || isSubmitting} type="submit">
-                Save
+                حفظ
               </Button>
             </div>
           </form>

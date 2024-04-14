@@ -70,11 +70,12 @@ function EditQuestionModal({
       <AlertDialogTrigger asChild>{children}</AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>
-          <AlertDialogTitle>Edit Question</AlertDialogTitle>
-          <div>
+          <AlertDialogTitle className="text-right">عدل السؤال</AlertDialogTitle>
+          <div className="text-right">
             <div>
-              <h3 className="text-slate-500 font-medium text-sm">Question</h3>
+              <h3 className="text-slate-500 font-medium text-sm">السؤال</h3>
               <Input
+                className="text-right"
                 placeholder="e.g. What is the answer for this?"
                 value={question.questionHead}
                 onChange={(e) => {
@@ -86,7 +87,7 @@ function EditQuestionModal({
               />
             </div>
             <div className="flex flex-col space-y-2 mt-6">
-              <h3 className="text-slate-500 font-medium text-sm">Answers</h3>
+              <h3 className="text-slate-500 font-medium text-sm">الاجابات</h3>
               <RadioGroup
                 defaultValue={`${initialCorrectAnswer}`}
                 onValueChange={(value) => {
@@ -97,8 +98,8 @@ function EditQuestionModal({
                 }}
               >
                 <div className="flex items-center space-x-2">
-                  <RadioGroupItem value="0"></RadioGroupItem>
                   <Input
+                    className="text-right"
                     placeholder="e.g. Answer 1"
                     value={question.answers[0]}
                     onChange={(e) => {
@@ -112,10 +113,11 @@ function EditQuestionModal({
                       });
                     }}
                   />
+                  <RadioGroupItem value="0"></RadioGroupItem>
                 </div>
                 <div className="flex items-center space-x-2">
-                  <RadioGroupItem value="1"></RadioGroupItem>
                   <Input
+                    className="text-right"
                     placeholder="e.g. Answer 2"
                     value={question.answers[1]}
                     onChange={(e) => {
@@ -129,10 +131,11 @@ function EditQuestionModal({
                       });
                     }}
                   />
+                  <RadioGroupItem value="1"></RadioGroupItem>
                 </div>
                 <div className="flex items-center space-x-2">
-                  <RadioGroupItem value="2"></RadioGroupItem>
                   <Input
+                    className="text-right"
                     placeholder="e.g. Answer 3"
                     value={question.answers[2]}
                     onChange={(e) => {
@@ -146,10 +149,11 @@ function EditQuestionModal({
                       });
                     }}
                   />
+                  <RadioGroupItem value="2"></RadioGroupItem>
                 </div>
                 <div className="flex items-center space-x-2">
-                  <RadioGroupItem value="3"></RadioGroupItem>
                   <Input
+                    className="text-right"
                     placeholder="e.g. Answer 4"
                     value={question.answers[3]}
                     onChange={(e) => {
@@ -163,14 +167,15 @@ function EditQuestionModal({
                       });
                     }}
                   />
+                  <RadioGroupItem value="3"></RadioGroupItem>
                 </div>
               </RadioGroup>
             </div>
           </div>
         </AlertDialogHeader>
-        <AlertDialogFooter>
-          <AlertDialogCancel>Cancel</AlertDialogCancel>
-          <AlertDialogAction onClick={onSubmit}>Confirm</AlertDialogAction>
+        <AlertDialogFooter className="">
+          <AlertDialogCancel className="ml-2 ">ألغ</AlertDialogCancel>
+          <AlertDialogAction onClick={onSubmit}>عدل السؤال</AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>

@@ -33,7 +33,7 @@ function NewAttempt({ userProgress }: NewAttemptProps) {
       variant={"secondary"}
       className="px-8 py-6 text-lg"
     >
-      Attempt Again
+      أعد الامتحان من جديد
     </Button>
   );
 }

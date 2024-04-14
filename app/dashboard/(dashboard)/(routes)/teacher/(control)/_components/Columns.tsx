@@ -19,7 +19,7 @@ export type CoursesWithEnrollment = {
 export const columns: ColumnDef<CoursesWithEnrollment>[] = [
   {
     accessorKey: "title",
-    header: "Course",
+    header: "الكورس",
   },
   {
     accessorKey: "purchases",
@@ -29,8 +29,8 @@ export const columns: ColumnDef<CoursesWithEnrollment>[] = [
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
-          Purchases
-          <ArrowUpDown className="ml-2 h-4 w-4" />
+          طلبات الانضمام
+          <ArrowUpDown className="mr-2 h-4 w-4" />
         </Button>
       );
     },
@@ -38,14 +38,17 @@ export const columns: ColumnDef<CoursesWithEnrollment>[] = [
       const students = parseFloat(row.getValue("purchases") || "0");
 
       return (
-        <div className="ml-4">
-          {students} {students === 1 ? "Enrollment" : "Enrollments"}
+        <div className="text-center">
+          {students} {students === 1 ? "طلب" : "طلبات"}
         </div>
       );
     },
   },
   {
     id: "actions",
+    header: ({ column }) => {
+      return <div className="text-center">...</div>;
+    },
     cell: ({ row }) => {
       const { id } = row.original;
       return (
@@ -60,7 +63,7 @@ export const columns: ColumnDef<CoursesWithEnrollment>[] = [
             <Link href={`/dashboard/teacher/enrollment/${id}`}>
               <DropdownMenuItem className="flex items-center p-2 bg-white border rounded-md hover:outline-none hover:bg-white/90">
                 <Pencil className="h-4 w-4 mr-2" />
-                See enrollment
+                طلبات الانضمام
               </DropdownMenuItem>
             </Link>
           </DropdownMenuContent>

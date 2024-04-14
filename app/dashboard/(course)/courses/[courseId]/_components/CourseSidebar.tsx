@@ -41,7 +41,7 @@ async function CourseSidebar({ course, progressCount }: CourseSidebarProps) {
     },
   });
   return (
-    <div className="h-full border-r flex flex-col overflow-y-auto shadow-sm ">
+    <div className="h-full border-l flex flex-col overflow-y-auto shadow-sm ">
       <div className="p-8 flex flex-col border-b ">
         <h1 className="font-semibold">{course.title}</h1>
         <div className="mt-10">
@@ -64,7 +64,7 @@ async function CourseSidebar({ course, progressCount }: CourseSidebarProps) {
                 key={chapter.exam.id}
                 id={chapter.exam.id}
                 label={`${chapter.title} exam`}
-                isCompleted={chapter.exam.examProgress[0].isCompleted}
+                isCompleted={chapter.exam.examProgress[0]?.isCompleted}
                 courseId={course.id}
                 isLocked={!chapter.isFree && !purchase?.isActivated}
               />

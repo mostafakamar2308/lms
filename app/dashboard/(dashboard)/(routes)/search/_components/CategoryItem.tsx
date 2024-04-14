@@ -38,7 +38,7 @@ function CategoryItem({ label, icon: Icon, value }: CategoryItemProps) {
       )}
       type="button"
     >
-      {Icon && <Icon size={20} />}
+      {/* {Icon && <Icon size={20} />} */}
       <div className="truncate">{label}</div>
     </button>
   );

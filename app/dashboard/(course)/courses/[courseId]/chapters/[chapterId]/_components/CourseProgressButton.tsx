@@ -62,8 +62,8 @@ function CourseProgressButton({
       type="button"
       variant={isCompleted ? "outline" : "success"}
     >
-      {isCompleted ? "Not Completed" : "Mark as Complete"}
-      <Icon className="h-4 ml-2 w-4" />
+      {isCompleted ? "لم تنه الحصة" : "أنهيت الحصة"}
+      <Icon className="h-4 mr-2 w-4" />
     </Button>
   );
 }

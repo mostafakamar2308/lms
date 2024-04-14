@@ -63,14 +63,16 @@ function NewQuestionModal({
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>{children}</AlertDialogTrigger>
-      <AlertDialogContent>
-        <AlertDialogHeader>
-          <AlertDialogTitle>New Question</AlertDialogTitle>
+      <AlertDialogContent dir="rtl" className="text-right">
+        <AlertDialogHeader dir="rtl">
+          <AlertDialogTitle className="text-right">سؤال جديد</AlertDialogTitle>
           <div>
             <div>
-              <h3 className="text-slate-500 font-medium text-sm">Question</h3>
+              <h3 className="text-slate-500 font-medium text-sm text-right">
+                السؤال
+              </h3>
               <Input
-                placeholder="e.g. What is the answer for this?"
+                placeholder="مثال: ما هي عاصمة مصر"
                 value={question.questionHead}
                 onChange={(e) => {
                   setQuestion((prev) => ({
@@ -81,7 +83,9 @@ function NewQuestionModal({
               />
             </div>
             <div className="flex flex-col space-y-2 mt-6">
-              <h3 className="text-slate-500 font-medium text-sm">Answers</h3>
+              <h3 className="text-slate-500 font-medium text-sm text-right">
+                الاجابات
+              </h3>
               <RadioGroup
                 defaultValue={"0"}
                 onValueChange={(value) => {
@@ -92,9 +96,9 @@ function NewQuestionModal({
                 }}
               >
                 <div className="flex items-center space-x-2">
-                  <RadioGroupItem value="0"></RadioGroupItem>
                   <Input
-                    placeholder="e.g. Answer 1"
+                    className="text-right"
+                    placeholder="مثال: الاجابة 1"
                     value={question.answers[0]}
                     onChange={(e) => {
                       setQuestion((prev) => {
@@ -107,11 +111,12 @@ function NewQuestionModal({
                       });
                     }}
                   />
+                  <RadioGroupItem value="0"></RadioGroupItem>
                 </div>
                 <div className="flex items-center space-x-2">
-                  <RadioGroupItem value="1"></RadioGroupItem>
                   <Input
-                    placeholder="e.g. Answer 2"
+                    className="text-right"
+                    placeholder="مثال: الاجابة 2"
                     value={question.answers[1]}
                     onChange={(e) => {
                       setQuestion((prev) => {
@@ -124,11 +129,12 @@ function NewQuestionModal({
                       });
                     }}
                   />
+                  <RadioGroupItem value="1"></RadioGroupItem>
                 </div>
                 <div className="flex items-center space-x-2">
-                  <RadioGroupItem value="2"></RadioGroupItem>
                   <Input
-                    placeholder="e.g. Answer 3"
+                    className="text-right"
+                    placeholder="مثال: الاجابة 3"
                     value={question.answers[2]}
                     onChange={(e) => {
                       setQuestion((prev) => {
@@ -141,11 +147,12 @@ function NewQuestionModal({
                       });
                     }}
                   />
+                  <RadioGroupItem value="2"></RadioGroupItem>
                 </div>
                 <div className="flex items-center space-x-2">
-                  <RadioGroupItem value="3"></RadioGroupItem>
                   <Input
-                    placeholder="e.g. Answer 4"
+                    className="text-right"
+                    placeholder="مثال: الاجابة 4"
                     value={question.answers[3]}
                     onChange={(e) => {
                       setQuestion((prev) => {
@@ -158,14 +165,15 @@ function NewQuestionModal({
                       });
                     }}
                   />
+                  <RadioGroupItem value="3"></RadioGroupItem>
                 </div>
               </RadioGroup>
             </div>
           </div>
         </AlertDialogHeader>
         <AlertDialogFooter>
-          <AlertDialogCancel>Cancel</AlertDialogCancel>
-          <AlertDialogAction onClick={onSubmit}>Add Question</AlertDialogAction>
+          <AlertDialogCancel className="ml-2">ألغ</AlertDialogCancel>
+          <AlertDialogAction onClick={onSubmit}>أضف السؤال</AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>

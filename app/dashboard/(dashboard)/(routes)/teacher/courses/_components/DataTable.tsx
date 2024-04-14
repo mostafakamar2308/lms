@@ -58,7 +58,7 @@ export function DataTable<TData, TValue>({
     <div>
       <div className="flex flex-wrap  gap-2 md:flex-nowrap items-center py-4 w-full justify-between">
         <Input
-          placeholder="Filter by course Name..."
+          placeholder="ابحث عن كورس ..."
           value={(table.getColumn("title")?.getFilterValue() as string) ?? ""}
           onChange={(event) =>
             table.getColumn("title")?.setFilterValue(event.target.value)
@@ -67,7 +67,7 @@ export function DataTable<TData, TValue>({
         />
         <Link href={`/dashboard/teacher/create`}>
           <Button>
-            <PlusCircle className="h-4 w-4 mr-2" /> New Course
+            <PlusCircle className="h-4 w-4 ml-2" /> كورس جديد
           </Button>
         </Link>
       </div>
@@ -122,14 +122,14 @@ export function DataTable<TData, TValue>({
         </Table>
       </div>
 
-      <div className="flex items-center justify-end space-x-2 py-4">
+      <div className="flex items-center justify-end space-x-2 gap-2 py-4">
         <Button
           variant="outline"
           size="sm"
           onClick={() => table.previousPage()}
           disabled={!table.getCanPreviousPage()}
         >
-          Previous
+          السابق
         </Button>
         <Button
           variant="outline"
@@ -137,7 +137,7 @@ export function DataTable<TData, TValue>({
           onClick={() => table.nextPage()}
           disabled={!table.getCanNextPage()}
         >
-          Next
+          التالي
         </Button>
       </div>
     </div>

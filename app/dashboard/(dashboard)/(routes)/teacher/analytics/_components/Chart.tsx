@@ -7,7 +7,7 @@ interface ChartProps {
 }
 function Chart({ data }: ChartProps) {
   return (
-    <Card>
+    <Card className="p-12">
       <ResponsiveContainer width={"100%"} height={350}>
         <BarChart data={data}>
           <XAxis

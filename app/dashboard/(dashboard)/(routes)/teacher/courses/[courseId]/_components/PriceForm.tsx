@@ -55,20 +55,20 @@ function PriceForm({ initialData, courseId }: PriceFormProps) {
   return (
     <div className="mt-6 bg-slate-100 rounded-md p-4">
       <div className="font-medium flex items-center justify-between">
-        Course Price{" "}
+        سعر الكورس{" "}
         <Button onClick={toggleEdit} variant={"ghost"}>
-          {isEditing && "Cancel"}{" "}
+          {isEditing && "ألغ"}{" "}
           {!isEditing && (
             <>
-              <Pencil className="h-4 w-4 mr-2" />
-              <>Edit Price</>
+              <Pencil className="h-4 w-4 ml-2" />
+              <>عدل السعر</>
             </>
           )}
         </Button>
       </div>
       {!isEditing ? (
         <p className="text-sm mt-2 ">
-          {initialData.price ? formatPrice(initialData.price) : "No Price"}
+          {initialData.price ? formatPrice(initialData.price) : "..."}
         </p>
       ) : (
         <Form {...form}>
@@ -94,9 +94,9 @@ function PriceForm({ initialData, courseId }: PriceFormProps) {
                 </FormItem>
               )}
             />
-            <div className="flex items-center gap-x-2">
+            <div className="flex items-center justify-end gap-x-2">
               <Button disabled={!isValid || isSubmitting} type="submit">
-                Save
+                حفظ
               </Button>
             </div>
           </form>
