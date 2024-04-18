@@ -31,11 +31,19 @@ function CourseEnrollButton({
     }
   };
   return (
-    <EnrollModal onConfirm={onClick} price={price} title={title}>
-      <Button disabled={isLoading} className="w-full md:w-auto">
-        Enrol for {formatPrice(price)} EGP
-      </Button>
-    </EnrollModal>
+    <>
+      {price ? (
+        <EnrollModal onConfirm={onClick} price={price} title={title}>
+          <Button disabled={isLoading} className="w-full md:w-auto">
+            اشترك في الكورس بسعر {formatPrice(price)}
+          </Button>
+        </EnrollModal>
+      ) : (
+        <Button className="w-full md:w-auto" onClick={onClick}>
+          اشترك مجانا
+        </Button>
+      )}
+    </>
   );
 }
 

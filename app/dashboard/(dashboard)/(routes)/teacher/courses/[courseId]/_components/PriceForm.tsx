@@ -20,7 +20,7 @@ import { Course } from "@prisma/client";
 import { formatPrice } from "@/lib/format";
 
 const formSchema = z.object({
-  price: z.coerce.number().min(1, { message: "Price is Required" }),
+  price: z.coerce.number().min(0, { message: "Price is Required" }),
 });
 
 interface PriceFormProps {
@@ -67,9 +67,14 @@ function PriceForm({ initialData, courseId }: PriceFormProps) {
         </Button>
       </div>
       {!isEditing ? (
-        <p className="text-sm mt-2 ">
-          {initialData.price ? formatPrice(initialData.price) : "..."}
-        </p>
+        <>
+          <p className="text-sm mt-2 ">
+            {initialData.price && formatPrice(initialData.price)}
+          </p>
+          <p className="text-xs text-slate-500">
+            {initialData.isFree && "هذا الكورس مجانى"}
+          </p>
+        </>
       ) : (
         <Form {...form}>
           <form
@@ -90,6 +95,9 @@ function PriceForm({ initialData, courseId }: PriceFormProps) {
                       {...field}
                     />
                   </FormControl>
+                  <p className="text-xs text-slate-500">
+                    اكتب 0 ان اردت ان يكون الكورس مجانى
+                  </p>
                   <FormMessage></FormMessage>
                 </FormItem>
               )}

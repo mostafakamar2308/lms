@@ -63,15 +63,32 @@ export async function PATCH(
     if (!userId || !isTeacher(userId)) {
       return new NextResponse("Unauthorized", { status: 401 });
     }
-    const course = await db.course.update({
-      where: {
-        id: courseId,
-        userId,
-      },
-      data: {
-        ...values,
-      },
-    });
+
+    let isFreeProp = null;
+    if (values.price || values.price === 0) {
+      values.price === 0 ? (isFreeProp = true) : (isFreeProp = false);
+      const course = await db.course.update({
+        where: {
+          id: courseId,
+          userId,
+        },
+        data: {
+          ...values,
+          isFree: isFreeProp,
+        },
+      });
+    } else {
+      const course = await db.course.update({
+        where: {
+          id: courseId,
+          userId,
+        },
+        data: {
+          ...values,
+        },
+      });
+    }
+
     return NextResponse.json({ message: "Course updated successfully" });
   } catch (error) {
     console.log("[COURSE_ID]", error);

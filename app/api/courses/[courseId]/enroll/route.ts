@@ -11,11 +11,20 @@ export async function POST(
     if (!userId) {
       return new NextResponse("Unauthorized", { status: 401 });
     }
+    const course = await db.course.findUnique({
+      where: {
+        id: params.courseId,
+      },
+    });
+    if (!course) {
+      return new NextResponse("No course", { status: 404 });
+    }
 
     const purchase = await db.purchase.create({
       data: {
         courseId: params.courseId,
         userId: userId,
+        isActivated: course.isFree,
       },
     });
     return NextResponse.json(purchase);

@@ -21,7 +21,7 @@ export const getAnalytics = async (userId: string) => {
   try {
     const purchases = await db.purchase.findMany({
       where: {
-        course: { userId },
+        course: { userId, isFree: false },
       },
       include: {
         course: true,

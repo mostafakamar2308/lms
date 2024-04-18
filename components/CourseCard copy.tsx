@@ -4,6 +4,7 @@ import { IconBadge } from "./IconBadge";
 import { BookOpen } from "lucide-react";
 import { formatPrice } from "@/lib/format";
 import CourseProgress from "./CourseProgress";
+import { Badge } from "./ui/badge";
 
 interface CourseCardProps {
   id: string;
@@ -54,7 +55,11 @@ function CourseCard({
           </div>
           {!isPurchased ? (
             <p className="text-md text-right md:text-sm font-medium text-slate-700">
-              {formatPrice(price)}
+              {price ? (
+                formatPrice(price)
+              ) : (
+                <Badge className="font-normal">كورس مجانى</Badge>
+              )}
             </p>
           ) : progress !== null && isActivated ? (
             <CourseProgress
