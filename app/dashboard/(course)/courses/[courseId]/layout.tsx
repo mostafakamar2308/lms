@@ -50,7 +50,6 @@ async function CourseLayout({
       },
     },
   });
-  console.log(course?.chapters[1].exam);
   if (!course) redirect("/");
   const progressCount = await getProgress(userId, course.id);
   return (
