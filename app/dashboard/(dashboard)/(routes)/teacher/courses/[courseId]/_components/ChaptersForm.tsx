@@ -106,7 +106,7 @@ function ChaptersForm({ initialData, courseId }: ChaptersFormProps) {
                   <FormControl>
                     <Input
                       disabled={isSubmitting}
-                      placeholder="e.g. 'Introduction to course'"
+                      placeholder="الحصة الأولي ..."
                       {...field}
                     />
                   </FormControl>

@@ -22,11 +22,12 @@ export const StudentColumns: ColumnDef<CoursesWithStudents>[] = [
     header: ({ column }) => {
       return (
         <Button
+          className="mx-auto flex"
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
-          Course
-          <ArrowUpDown className="ml-2 h-4 w-4" />
+          الكورس
+          <ArrowUpDown className="mr-2 h-4 w-4" />
         </Button>
       );
     },
@@ -36,11 +37,12 @@ export const StudentColumns: ColumnDef<CoursesWithStudents>[] = [
     header: ({ column }) => {
       return (
         <Button
+          className="flex mx-auto"
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
           الطلاب
-          <ArrowUpDown className="ml-2 h-4 w-4" />
+          <ArrowUpDown className="mr-2 h-4 w-4" />
         </Button>
       );
     },
@@ -48,7 +50,7 @@ export const StudentColumns: ColumnDef<CoursesWithStudents>[] = [
       const students = parseFloat(row.getValue("students") || "0");
 
       return (
-        <div className="ml-4">
+        <div className=" mx-auto text-center">
           {students} {students === 1 ? "طالب" : "طلاب"}
         </div>
       );
@@ -56,25 +58,16 @@ export const StudentColumns: ColumnDef<CoursesWithStudents>[] = [
   },
   {
     id: "actions",
+    header: () => <div className="text-center">طلاب الكورس</div>,
     cell: ({ row }) => {
       const { id } = row.original;
       return (
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant={"ghost"} className="h-4 w-8 p-0">
-              <span className="sr-only">Open menu</span>
-              <MoreHorizontal className="h-4 w-4" />
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="center">
-            <Link href={`/dashboard/teacher/students/${id}`}>
-              <DropdownMenuItem className="flex items-center p-2 bg-white border rounded-md hover:outline-none hover:bg-white/90">
-                <Pencil className="h-4 w-4 mr-2" />
-                طلاب الكورس
-              </DropdownMenuItem>
-            </Link>
-          </DropdownMenuContent>
-        </DropdownMenu>
+        <Link
+          href={`/dashboard/teacher/students/${id}`}
+          className="flex justify-center"
+        >
+          <Pencil className="h-4 w-4 mr-2" />
+        </Link>
       );
     },
   },

@@ -19,13 +19,16 @@ export type CoursesWithEnrollment = {
 export const columns: ColumnDef<CoursesWithEnrollment>[] = [
   {
     accessorKey: "title",
-    header: "الكورس",
+    header: ({ column }) => {
+      return <div className="flex mx-auto">الكورس</div>;
+    },
   },
   {
     accessorKey: "purchases",
     header: ({ column }) => {
       return (
         <Button
+          className="flex mx-auto"
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
@@ -47,27 +50,17 @@ export const columns: ColumnDef<CoursesWithEnrollment>[] = [
   {
     id: "actions",
     header: ({ column }) => {
-      return <div className="text-center">...</div>;
+      return <div className="flex mx-auto">طلبات الانضمام</div>;
     },
     cell: ({ row }) => {
       const { id } = row.original;
       return (
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant={"ghost"} className="h-4 w-8 p-0">
-              <span className="sr-only">Open menu</span>
-              <MoreHorizontal className="h-4 w-4" />
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="center">
-            <Link href={`/dashboard/teacher/enrollment/${id}`}>
-              <DropdownMenuItem className="flex items-center p-2 bg-white border rounded-md hover:outline-none hover:bg-white/90">
-                <Pencil className="h-4 w-4 mr-2" />
-                طلبات الانضمام
-              </DropdownMenuItem>
-            </Link>
-          </DropdownMenuContent>
-        </DropdownMenu>
+        <Link
+          href={`/dashboard/teacher/enrollment/${id}`}
+          className="block mx-auto"
+        >
+          <Pencil className="h-4 w-4 mr-6" />
+        </Link>
       );
     },
   },

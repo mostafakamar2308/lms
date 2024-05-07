@@ -79,7 +79,7 @@ async function Page({
     <div className="pt-20">
       {exam.examProgress[0]?.isCompleted && (
         <div className="p-8 grid space-y-8">
-          <div className="flex items-center gap-10 justify-between px-8">
+          <div className="flex items-center  gap-10 sm:justify-between sm:px-8">
             <h3 className="text-4xl text-emerald-700 font-semibold">درجتك </h3>
             <div
               data-progress={exam.examProgress[0].grades[0].grade}
@@ -99,7 +99,7 @@ async function Page({
               {exam.examProgress[0].grades[0].grade} / {exam.questions.length}
             </div>
           </div>
-          <div className="flex items-center gap-10 justify-between px-8">
+          <div className="flex items-center gap-4 sm:justify-between sm:px-8">
             <h3 className="text-4xl text-emerald-700 font-semibold">
               أعلي درجاتك
             </h3>
@@ -119,7 +119,7 @@ async function Page({
               {highestGrade} / {exam.questions.length}
             </div>
           </div>
-          <div className="flex justify-center space-x-4 gap-4">
+          <div className="flex justify-center flex-wrap space-x-4 gap-4">
             <NewAttempt userProgress={exam.examProgress[0]} />{" "}
             {nextChapter && (
               <Button className="px-8 py-6 text-lg">

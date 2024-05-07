@@ -23,7 +23,7 @@ function HomeUserCard({
         />
       </CardHeader>
       <CardContent className="py-8 ">
-        <h1 className="text-xl md:text-base font-semibold transition line-clamp-2">
+        <h1 className="text-xl tracking-normal md:text-base font-semibold transition line-clamp-2">
           {name}
         </h1>
         <p className="flex gap-2 text-slate-700">{description}</p>

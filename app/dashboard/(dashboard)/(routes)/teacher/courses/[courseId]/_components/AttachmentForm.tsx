@@ -52,7 +52,7 @@ function AttachmentForm({ initialData, courseId }: AttachmentFormProps) {
   return (
     <div className="mt-6 bg-slate-100 rounded-md p-4">
       <div className="font-medium flex items-center justify-between">
-        Course Attachment{" "}
+        ملفات الكورس{" "}
         <Button onClick={toggleEdit} variant={"ghost"}>
           {isEditing && "ألغ"}{" "}
           {!isEditing && (
@@ -109,7 +109,7 @@ function AttachmentForm({ initialData, courseId }: AttachmentFormProps) {
             }}
           />
           <div className="text-xs text-muted-foreground mt-4">
-            Add anything your students might need to complete the course{" "}
+            أضف أي شيء قد يحتاجه طلابك لإكمال الكورس
           </div>
         </div>
       )}

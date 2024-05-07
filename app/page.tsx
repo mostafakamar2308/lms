@@ -104,7 +104,7 @@ function page() {
       </div>
       <div className="flex gap-6 flex-col items-center p-4">
         <p className="uppercase text-xs font-mono">طلابنا الاعزاء</p>
-        <h1 className="text-2xl md:text-4xl md:w-1/2 text-center font-semibold">
+        <h1 className="text-2xl tracking-normal md:text-4xl md:w-1/2 text-center font-semibold">
           أوائل الصف الثالث الثانوى
         </h1>
         <div className="grid md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-6 ">

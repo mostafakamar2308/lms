@@ -11,6 +11,7 @@ import Image from "next/image";
 import MuxPlayer from "@mux/mux-player-react";
 import FileUploader from "@/components/FileUploader";
 import Player from "@/app/dashboard/(course)/courses/[courseId]/chapters/[chapterId]/_components/Player";
+import { ReplayPlayerWrapper } from "@/app/dashboard/(course)/courses/[courseId]/chapters/[chapterId]/_components/ReplayPlayerWrapper";
 
 const formSchema = z.object({
   videoUrl: z.string().min(1),
@@ -49,9 +50,9 @@ function ChapterVideoForm({
   return (
     <div className="mt-6 bg-slate-100 rounded-md p-4">
       <div className="font-medium flex items-center justify-between">
-        Chapter Video{" "}
+        فيديو الحصة{" "}
         <Button onClick={toggleEdit} variant={"ghost"}>
-          {isEditing && "Cancel"}{" "}
+          {isEditing && "ألغ"}{" "}
           {!isEditing && !initialData.videoUrl && (
             <>
               <PlusCircle className="h-4 w-4 ml-2" />
@@ -73,7 +74,7 @@ function ChapterVideoForm({
           </div>
         ) : (
           <div className="relative aspect-video mt-2">
-            <Player onEnd={() => {}} src={initialData?.videoUrl || ""} />
+            <ReplayPlayerWrapper src={initialData.videoUrl} onEnd={() => {}} />
           </div>
         )
       ) : (

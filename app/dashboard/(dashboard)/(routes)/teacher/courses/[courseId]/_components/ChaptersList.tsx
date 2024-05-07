@@ -83,11 +83,11 @@ const ChaptersList = ({ onEdit, onReorder, items }: ChapterListProps) => {
                         <Grip className="h-5 w-5" />
                       </div>
                       {chapter.title}
-                      <div className="mr-auto pr-2 flex items-center gap-x-2">
+                      <div className="mr-auto pl-2 flex items-center gap-x-2">
                         {chapter.isFree && <Badge>مجانية</Badge>}
                         <Badge
                           className={cn(
-                            "bg-slate-500",
+                            "bg-slate-500 font-normal",
                             chapter.isPublished && "bg-sky-700"
                           )}
                         >
