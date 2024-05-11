@@ -6,6 +6,8 @@ import { ReactNode, Suspense } from "react";
 import CourseSidebar from "./_components/CourseSidebar";
 import CourseNavBar from "./_components/CourseNavBar";
 import Loading from "./loading";
+import { clerkClient } from "@clerk/nextjs/server";
+import limitSession from "@/actions/limitSession";
 
 async function CourseLayout({
   children,
@@ -14,10 +16,13 @@ async function CourseLayout({
   children: ReactNode;
   params: { courseId: string };
 }) {
-  const { userId } = auth();
-  if (!userId) {
-    return redirect("/");
-  }
+  const clerk = auth();
+
+  const { userId, sessionId } = clerk;
+  if (!userId) return redirect("/");
+  const isAllowed = await limitSession(userId, sessionId);
+  if (!isAllowed) return redirect("/");
+
   const course = await db.course.findUnique({
     where: {
       id: params.courseId,

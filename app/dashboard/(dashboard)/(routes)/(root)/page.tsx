@@ -2,12 +2,16 @@ import { getDashboardCourses } from "@/actions/getDashboardCourses";
 import { auth } from "@clerk/nextjs";
 import { redirect } from "next/navigation";
 import CoursesList from "../search/_components/CoursesList";
-import { CheckCheck, Clock } from "lucide-react";
-import InfoCard from "./_components/InfoCard";
+import limitSession from "@/actions/limitSession";
+import axios from "axios";
 
 export default async function Dashboard() {
-  const { userId } = auth();
-  if (!userId) redirect("/");
+  const clerk = auth();
+
+  const { userId, sessionId } = clerk;
+  if (!userId) return redirect("/");
+  const isAllowed = await limitSession(userId, sessionId);
+  if (!isAllowed) return redirect("/");
 
   const { coursesInProgress, completedCourses } = await getDashboardCourses(
     userId

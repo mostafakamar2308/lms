@@ -10,16 +10,17 @@ import { Preview } from "@/components/Preview";
 import { File } from "lucide-react";
 import CourseProgressButton from "./_components/CourseProgressButton";
 import { Button } from "@/components/ui/button";
+import { clerkClient } from "@clerk/nextjs/server";
 
 async function Page({
   params,
 }: {
   params: { courseId: string; chapterId: string };
 }) {
-  const { userId } = auth();
-  if (!userId) {
-    return redirect("/");
-  }
+  const clerk = auth();
+  const { userId } = clerk;
+  if (!userId) redirect("/");
+
   const { chapter, course, attachements, nextChapter, userProgress, purchase } =
     await getChapter({
       userId,

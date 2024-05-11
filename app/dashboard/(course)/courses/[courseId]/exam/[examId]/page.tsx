@@ -6,16 +6,17 @@ import QuestionGroup from "./_components/QuestionGroup";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import NewAttempt from "./_components/NewAttempt";
+import { clerkClient } from "@clerk/nextjs/server";
 
 async function Page({
   params,
 }: {
   params: { courseId: string; examId: string };
 }) {
-  const { userId } = auth();
-  if (!userId) {
-    return redirect("/");
-  }
+  const clerk = auth();
+  const { userId } = clerk;
+  if (!userId) redirect("/");
+
   const course = await db.purchase.findUnique({
     where: {
       userId_courseId: {

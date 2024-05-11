@@ -63,6 +63,7 @@
     "zustand": "^4.5.1"
   },
   "devDependencies": {
+    "@playwright/test": "^1.44.0",
     "prisma": "^5.9.1"
   }
 }
