@@ -10,8 +10,6 @@ export default async function Dashboard() {
 
   const { userId, sessionId } = clerk;
   if (!userId) return redirect("/");
-  const isAllowed = await limitSession(userId, sessionId);
-  if (!isAllowed) return redirect("/");
 
   const { coursesInProgress, completedCourses } = await getDashboardCourses(
     userId

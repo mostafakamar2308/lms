@@ -5,7 +5,9 @@ import "vimond-replay/index.css";
 function ReplayPlayer({ src, onEnd }: { src: string; onEnd: () => void }) {
   return (
     <Replay
-      onError={() => toast.error("An error in video has happened")}
+      onError={(e) => {
+        toast.error("An error in video has happened");
+      }}
       source={{ streamUrl: src }}
       initialPlaybackProps={{ isPaused: true }}
     ></Replay>

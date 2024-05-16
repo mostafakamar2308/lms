@@ -18,10 +18,8 @@ async function CourseLayout({
 }) {
   const clerk = auth();
 
-  const { userId, sessionId } = clerk;
+  const { userId } = clerk;
   if (!userId) return redirect("/");
-  const isAllowed = await limitSession(userId, sessionId);
-  if (!isAllowed) return redirect("/");
 
   const course = await db.course.findUnique({
     where: {

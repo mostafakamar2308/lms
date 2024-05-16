@@ -7,11 +7,8 @@ import { useState } from "react";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import { Chapter, Course, MuxData } from "@prisma/client";
-import Image from "next/image";
-import MuxPlayer from "@mux/mux-player-react";
 import FileUploader from "@/components/FileUploader";
-import Player from "@/app/dashboard/(course)/courses/[courseId]/chapters/[chapterId]/_components/Player";
-import { ReplayPlayerWrapper } from "@/app/dashboard/(course)/courses/[courseId]/chapters/[chapterId]/_components/ReplayPlayerWrapper";
+import { ReplayPlayerWrapper } from "@/app/dashboard/(course)/courses/[courseId]/(course-content)/chapters/[chapterId]/_components/ReplayPlayerWrapper";
 
 const formSchema = z.object({
   videoUrl: z.string().min(1),

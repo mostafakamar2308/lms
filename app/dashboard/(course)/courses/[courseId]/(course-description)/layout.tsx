@@ -1,9 +1,10 @@
 import { Suspense } from "react";
-import Navbar from "./_components/Navbar";
-import Sidebar from "./_components/Sidebar";
+
 import Loading from "./loading";
 import { auth } from "@clerk/nextjs";
 import { redirect } from "next/navigation";
+import Navbar from "@/app/dashboard/(dashboard)/_components/Navbar";
+import Sidebar from "@/app/dashboard/(dashboard)/_components/Sidebar";
 
 const DashboardLayout = async ({ children }: { children: React.ReactNode }) => {
   const clerk = auth();
