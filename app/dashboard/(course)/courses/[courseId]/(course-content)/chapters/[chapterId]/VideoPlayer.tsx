@@ -11,31 +11,29 @@ import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import { useConfettiStore } from "@/hooks/use-confetti-store";
 import { ReplayPlayerWrapper } from "./_components/ReplayPlayerWrapper";
+import { Button } from "@/components/ui/button";
 
 interface VideoPlayerProps {
   chapterId: string;
-  videoUrl: string;
-  title: string;
+  ytUrl: { url: string; quality: string }[];
   courseId: string;
   nextChapterId?: string;
   playbackId?: string;
   isLocked: boolean;
-  completeOnEnd: boolean;
   examId: string | null;
 }
 function VideoPlayer({
-  videoUrl,
+  ytUrl,
   chapterId,
-  title,
   examId,
   courseId,
   nextChapterId,
-  playbackId,
   isLocked,
-  completeOnEnd,
 }: VideoPlayerProps) {
   const router = useRouter();
   const confetti = useConfettiStore();
+  const [activeVideo, setActiveVideo] = useState(ytUrl[0]);
+
   const onVideoEnd = async () => {
     try {
       await axios.put(
@@ -62,23 +60,20 @@ function VideoPlayer({
   };
 
   return (
-    <div className="relative aspect-video">
-      {isLocked && (
-        <div className=" absolute inset-0 flex items-center justify-center bg-slate-800 flex-col gap-y-2 text-secondary">
-          <Lock className="h-8 w-8" />
-          <p className="text-sm">This chapter is locked</p>
-        </div>
-      )}
-      {!isLocked && (
-        // <Player
-        //   onEnd={onVideoEnd}
-        //   src={videoUrl}
-        //   muted={false}
-        //   autoPlay={false}
-        // />
-        <ReplayPlayerWrapper src={videoUrl} onEnd={onVideoEnd} />
-      )}
-    </div>
+    <>
+      <div className="relative aspect-video">
+        {!isLocked && (
+          <ReplayPlayerWrapper src={activeVideo.url} onEnd={onVideoEnd} />
+        )}
+      </div>
+      <div className="mt-2 flex gap-4">
+        {ytUrl.map((video, index) => (
+          <Button key={index} onClick={() => setActiveVideo(ytUrl[index])}>
+            {video.quality}
+          </Button>
+        ))}
+      </div>
+    </>
   );
 }
 

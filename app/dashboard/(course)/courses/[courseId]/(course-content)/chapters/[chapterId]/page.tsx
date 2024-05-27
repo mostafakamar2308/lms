@@ -7,10 +7,12 @@ import VideoPlayer from "./VideoPlayer";
 import CourseEnrollButton from "./_components/CourseEnrollButton";
 import { Separator } from "@/components/ui/separator";
 import { Preview } from "@/components/Preview";
-import { File } from "lucide-react";
+import { File, Lock } from "lucide-react";
 import CourseProgressButton from "./_components/CourseProgressButton";
 import { Button } from "@/components/ui/button";
 import { clerkClient } from "@clerk/nextjs/server";
+import ytdl from "ytdl-core";
+import YtPlayer from "./YtPlayer";
 
 async function Page({
   params,
@@ -34,8 +36,15 @@ async function Page({
 
   const isPurchased = purchase;
   const isActivated = !!purchase?.isActivated;
+  const ytVideo = await ytdl.getInfo(
+    "https://www.youtube.com/watch?v=zcNe8m-f_2M"
+  );
 
-  const completeOnEnd = !!purchase && !userProgress?.isCompleted;
+  const ytUrl = ytVideo.formats
+    .filter((format) => format.audioCodec && format.videoCodec)
+    .map((video) => ({ url: video.url, quality: video.qualityLabel }));
+
+  const isLocked = !isActivated && !chapter.isFree;
 
   return (
     <div className="pt-20">
@@ -56,16 +65,25 @@ async function Page({
       )}
       <div className="flex flex-col max-w-4xl mx-auto pb-20">
         <div className="p-4">
-          <VideoPlayer
-            examId={chapter.exam?.id || null}
-            videoUrl={chapter.videoUrl!}
-            chapterId={params.chapterId}
-            title={chapter.title}
-            courseId={params.courseId}
-            nextChapterId={nextChapter?.id}
-            isLocked={!isActivated && !chapter.isFree}
-            completeOnEnd={completeOnEnd}
-          />
+          {isLocked ? (
+            <div className="relative aspect-video">
+              {isLocked && (
+                <div className=" absolute inset-0 flex items-center justify-center bg-slate-800 flex-col gap-y-2 text-secondary">
+                  <Lock className="h-8 w-8" />
+                  <p className="text-sm">This chapter is locked</p>
+                </div>
+              )}
+            </div>
+          ) : (
+            <VideoPlayer
+              examId={chapter.exam?.id || null}
+              chapterId={params.chapterId}
+              courseId={params.courseId}
+              nextChapterId={nextChapter?.id}
+              isLocked={isLocked}
+              ytUrl={ytUrl}
+            />
+          )}
         </div>
         <div className="p-4 flex flex-col md:flex-row items-center justify-between">
           <h2 className="text-2xl font-semibold mb-2">{chapter.title}</h2>
