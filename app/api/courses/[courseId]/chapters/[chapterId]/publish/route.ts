@@ -27,14 +27,9 @@ export async function PATCH(
         courseId: params.courseId,
       },
     });
-    const muxData = await db.muxData.findFirst({
-      where: {
-        chapterId: params.chapterId,
-      },
-    });
+
     if (
       !chapter ||
-      !muxData ||
       !chapter.title ||
       !chapter.description ||
       !chapter.videoUrl

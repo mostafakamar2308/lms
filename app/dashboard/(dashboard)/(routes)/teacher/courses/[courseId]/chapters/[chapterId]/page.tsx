@@ -18,6 +18,8 @@ import { Banner } from "@/components/Banner";
 import { ChapterActions } from "./_components/ChapterActions";
 import ExamActions from "./_components/ExamActions";
 import Question from "./_components/Question";
+import ChapterYtVideoForm from "./_components/ChapterYtVideoForm";
+import ytdl from "ytdl-core";
 
 const ChapterPage = async ({
   params,
@@ -42,6 +44,15 @@ const ChapterPage = async ({
       },
     },
   });
+  let ytUrl: any;
+  if (chapter?.videoUrl) {
+    const ytVideo = await ytdl.getInfo(chapter?.videoUrl);
+
+    ytUrl = ytVideo.formats
+      .filter((format) => format.audioCodec && format.videoCodec)
+      .map((video) => ({ url: video.url, quality: video.qualityLabel }));
+  }
+
   if (!chapter) {
     redirect("/");
   }
@@ -127,7 +138,8 @@ const ChapterPage = async ({
               <IconBadge icon={Video} />
               <h2 className="text-xl">أضف فيديو الحصة</h2>
             </div>
-            <ChapterVideoForm
+            <ChapterYtVideoForm
+              ytUrls={ytUrl}
               initialData={chapter}
               chapterId={params.chapterId}
               courseId={params.courseId}

@@ -1,6 +1,5 @@
 import { getChapter } from "@/actions/getChapter";
 import { Banner } from "@/components/Banner";
-import { db } from "@/lib/db";
 import { auth } from "@clerk/nextjs";
 import { redirect } from "next/navigation";
 import VideoPlayer from "./VideoPlayer";
@@ -10,9 +9,7 @@ import { Preview } from "@/components/Preview";
 import { File, Lock } from "lucide-react";
 import CourseProgressButton from "./_components/CourseProgressButton";
 import { Button } from "@/components/ui/button";
-import { clerkClient } from "@clerk/nextjs/server";
 import ytdl from "ytdl-core";
-import YtPlayer from "./YtPlayer";
 
 async function Page({
   params,
@@ -36,9 +33,7 @@ async function Page({
 
   const isPurchased = purchase;
   const isActivated = !!purchase?.isActivated;
-  const ytVideo = await ytdl.getInfo(
-    "https://www.youtube.com/watch?v=zcNe8m-f_2M"
-  );
+  const ytVideo = await ytdl.getInfo(chapter.videoUrl!);
 
   const ytUrl = ytVideo.formats
     .filter((format) => format.audioCodec && format.videoCodec)
