@@ -1,5 +1,5 @@
 import { db } from "@/lib/db";
-import { auth } from "@clerk/nextjs";
+import { getUserId } from "@/lib/utils";
 import { NextResponse } from "next/server";
 
 export async function PATCH(
@@ -8,7 +8,7 @@ export async function PATCH(
 ) {
   try {
     const { accept } = await req.json();
-    const { userId: courseOwnerId } = auth();
+    const courseOwnerId = await getUserId();
 
     if (!courseOwnerId) {
       return new NextResponse("Unauthorized", { status: 401 });

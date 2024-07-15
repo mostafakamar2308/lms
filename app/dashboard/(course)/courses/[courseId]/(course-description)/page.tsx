@@ -1,17 +1,13 @@
 import { Badge } from "@/components/ui/badge";
 import { db } from "@/lib/db";
-import { formatPrice } from "@/lib/format";
-import { auth } from "@clerk/nextjs";
-import Image from "next/image";
 import { redirect } from "next/navigation";
 import CourseEnrollButton from "../(course-content)/chapters/[chapterId]/_components/CourseEnrollButton";
 import { BookCheck, File, MonitorPlay, Video } from "lucide-react";
+import { getUserId } from "@/lib/utils";
 
 async function CoursePage({ params }: { params: { courseId: string } }) {
-  const { userId } = auth();
-  if (!userId) {
-    return redirect("/");
-  }
+  const userId = await getUserId();
+
   const purchase = await db.purchase.findUnique({
     where: {
       userId_courseId: {

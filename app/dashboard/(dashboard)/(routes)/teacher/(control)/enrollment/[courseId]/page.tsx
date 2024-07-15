@@ -1,16 +1,13 @@
 import UserCard from "@/components/UserCard";
 import { db } from "@/lib/db";
-import { auth } from "@clerk/nextjs";
+import { getUserId } from "@/lib/utils";
 import { clerkClient } from "@clerk/nextjs/server";
-import { ArrowLeft, ArrowRight } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 
 async function page({ params }: { params: { courseId: string } }) {
-  const { userId } = auth();
-  if (!userId) {
-    return redirect("/");
-  }
+  const userId = await getUserId();
 
   const courseOwner = await db.course.findUnique({
     where: {

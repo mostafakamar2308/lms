@@ -1,6 +1,5 @@
 import { getChapter } from "@/actions/getChapter";
 import { Banner } from "@/components/Banner";
-import { auth } from "@clerk/nextjs";
 import { redirect } from "next/navigation";
 import VideoPlayer from "./VideoPlayer";
 import CourseEnrollButton from "./_components/CourseEnrollButton";
@@ -10,15 +9,14 @@ import { File, Lock } from "lucide-react";
 import CourseProgressButton from "./_components/CourseProgressButton";
 import { Button } from "@/components/ui/button";
 import ytdl from "ytdl-core";
+import { getUserId } from "@/lib/utils";
 
 async function Page({
   params,
 }: {
   params: { courseId: string; chapterId: string };
 }) {
-  const clerk = auth();
-  const { userId } = clerk;
-  if (!userId) redirect("/");
+  const userId = await getUserId();
 
   const { chapter, course, attachements, nextChapter, userProgress, purchase } =
     await getChapter({

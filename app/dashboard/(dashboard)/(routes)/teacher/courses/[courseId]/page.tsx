@@ -1,6 +1,5 @@
 import { IconBadge } from "@/components/IconBadge";
 import { db } from "@/lib/db";
-import { auth } from "@clerk/nextjs";
 import {
   CircleDollarSign,
   File,
@@ -17,12 +16,10 @@ import AttachmentForm from "./_components/AttachmentForm";
 import ChaptersForm from "./_components/ChaptersForm";
 import CourseActions from "./_components/CourseActions";
 import { Banner } from "@/components/Banner";
+import { getUserId } from "@/lib/utils";
 
 const CoursePage = async ({ params }: { params: { courseId: string } }) => {
-  const { userId } = auth();
-  if (!userId) {
-    return redirect("/");
-  }
+  const userId = await getUserId();
 
   const course = await db.course.findUnique({
     where: {

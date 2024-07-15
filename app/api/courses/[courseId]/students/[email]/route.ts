@@ -1,6 +1,6 @@
 import { db } from "@/lib/db";
 import { isTeacher } from "@/lib/teacher";
-import { auth, clerkClient } from "@clerk/nextjs";
+import { getUserId } from "@/lib/utils";
 import { NextResponse } from "next/server";
 
 export async function GET(
@@ -8,7 +8,7 @@ export async function GET(
   { params }: { params: { courseId: string; email: string } }
 ) {
   try {
-    const { userId } = auth();
+    const userId = await getUserId();
     if (!userId || !isTeacher(userId)) {
       return new NextResponse("Unauthorized", { status: 401 });
     }
@@ -23,8 +23,13 @@ export async function GET(
       return NextResponse.json([]);
     }
 
-    const users = await clerkClient.users.getUserList({
-      query: params.email,
+    const users = await db.user.findMany({
+      where: {
+        email: {
+          contains: params.email,
+          mode: "insensitive",
+        },
+      },
     });
 
     if (users.length === 0) {
@@ -45,9 +50,9 @@ export async function GET(
       if (!purchase) {
         availableUsers.push({
           id: user.id,
-          imageUrl: user.imageUrl,
-          name: `${user.firstName} ${user.lastName || ""}`,
-          email: user.emailAddresses[0].emailAddress,
+          imageUrl: "",
+          name: user.name,
+          email: user.email,
         });
       }
     }

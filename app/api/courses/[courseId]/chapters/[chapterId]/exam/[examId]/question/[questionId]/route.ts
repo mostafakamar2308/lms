@@ -1,6 +1,6 @@
 import { db } from "@/lib/db";
 import { isTeacher } from "@/lib/teacher";
-import { auth } from "@clerk/nextjs";
+import { getUserId } from "@/lib/utils";
 import { NextResponse } from "next/server";
 
 export async function DELETE(
@@ -10,7 +10,7 @@ export async function DELETE(
   }: { params: { courseId: string; chapterId: string; questionId: string } }
 ) {
   try {
-    const { userId } = auth();
+    const userId = await getUserId();
     if (!userId || !isTeacher(userId)) {
       return new NextResponse("Unauthorized", { status: 401 });
     }
@@ -42,7 +42,7 @@ export async function PATCH(
   }: { params: { courseId: string; chapterId: string; questionId: string } }
 ) {
   try {
-    const { userId } = auth();
+    const userId = await getUserId();
     const { question } = await req.json();
     if (!userId || !isTeacher(userId)) {
       return new NextResponse("Unauthorized", { status: 401 });

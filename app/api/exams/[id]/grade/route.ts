@@ -1,6 +1,5 @@
 import { db } from "@/lib/db";
-import { isTeacher } from "@/lib/teacher";
-import { auth } from "@clerk/nextjs";
+import { getUserId } from "@/lib/utils";
 import { NextResponse } from "next/server";
 
 export async function POST(
@@ -9,7 +8,7 @@ export async function POST(
 ) {
   try {
     const examId = params.id;
-    const { userId } = auth();
+    const userId = await getUserId();
     const { questions: answers } = await req.json();
 
     if (!userId) {

@@ -1,6 +1,5 @@
 import { IconBadge } from "@/components/IconBadge";
 import { db } from "@/lib/db";
-import { auth } from "@clerk/nextjs";
 import {
   ArrowLeft,
   BookCheck,
@@ -13,23 +12,21 @@ import { redirect } from "next/navigation";
 import ChapterTitleForm from "./_components/ChapterTitleForm";
 import ChapterDescriptionForm from "./_components/ChapterDescriptionForm";
 import ChapterAccessForm from "./_components/ChapterAccessForm";
-import ChapterVideoForm from "./_components/ChapterVideoForm";
 import { Banner } from "@/components/Banner";
 import { ChapterActions } from "./_components/ChapterActions";
 import ExamActions from "./_components/ExamActions";
 import Question from "./_components/Question";
 import ChapterYtVideoForm from "./_components/ChapterYtVideoForm";
 import ytdl from "ytdl-core";
+import { getUserId } from "@/lib/utils";
 
 const ChapterPage = async ({
   params,
 }: {
   params: { courseId: string; chapterId: string };
 }) => {
-  const { userId } = auth();
-  if (!userId) {
-    return redirect("/");
-  }
+  const userId = await getUserId();
+
   const chapter = await db.chapter.findUnique({
     where: {
       id: params.chapterId,

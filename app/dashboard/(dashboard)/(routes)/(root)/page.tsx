@@ -1,15 +1,9 @@
 import { getDashboardCourses } from "@/actions/getDashboardCourses";
-import { auth } from "@clerk/nextjs";
-import { redirect } from "next/navigation";
 import CoursesList from "../search/_components/CoursesList";
-import limitSession from "@/actions/limitSession";
-import axios from "axios";
+import { getUserId } from "@/lib/utils";
 
 export default async function Dashboard() {
-  const clerk = auth();
-
-  const { userId, sessionId } = clerk;
-  if (!userId) return redirect("/");
+  const userId = await getUserId();
 
   const { coursesInProgress, completedCourses } = await getDashboardCourses(
     userId

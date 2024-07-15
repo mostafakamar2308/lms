@@ -1,16 +1,13 @@
 import { Suspense } from "react";
 
 import Loading from "./loading";
-import { auth } from "@clerk/nextjs";
-import { redirect } from "next/navigation";
+
 import Navbar from "@/app/dashboard/(dashboard)/_components/Navbar";
 import Sidebar from "@/app/dashboard/(dashboard)/_components/Sidebar";
+import { getUserId } from "@/lib/utils";
 
 const DashboardLayout = async ({ children }: { children: React.ReactNode }) => {
-  const clerk = auth();
-
-  const { userId } = clerk;
-  if (!userId) return redirect("/");
+  const userId = await getUserId();
 
   return (
     <div className="h-full" dir="rtl">

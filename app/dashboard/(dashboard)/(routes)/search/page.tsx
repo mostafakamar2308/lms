@@ -2,10 +2,9 @@ import { db } from "@/lib/db";
 import Categories from "./_components/Categories";
 import SearchInput from "@/components/SearchInput";
 import { getCourses } from "@/actions/getCourses";
-import { auth } from "@clerk/nextjs";
-import { redirect } from "next/navigation";
+
 import CoursesList from "./_components/CoursesList";
-import { clerkClient } from "@clerk/nextjs/server";
+import { getUserId } from "@/lib/utils";
 
 interface SearchPageProps {
   searchParams: {
@@ -15,10 +14,8 @@ interface SearchPageProps {
 }
 
 const SearchPage = async ({ searchParams }: SearchPageProps) => {
-  const clerk = auth();
-  const { userId } = clerk;
+  const userId = await getUserId();
 
-  if (!userId) redirect("/");
   const categories = await db.category.findMany({
     orderBy: {
       name: "asc",

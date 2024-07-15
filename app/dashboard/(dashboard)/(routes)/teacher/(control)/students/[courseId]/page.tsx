@@ -2,17 +2,15 @@ import ActivatedUserCard from "@/components/ActivatedUserCard";
 import UserCard from "@/components/UserCard";
 import { Button } from "@/components/ui/button";
 import { db } from "@/lib/db";
+import { getUserId } from "@/lib/utils";
 import { auth, clerkClient } from "@clerk/nextjs";
 import { ArrowLeft, ArrowRight, PlusCircle } from "lucide-react";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 
 async function page({ params }: { params: { courseId: string } }) {
-  const { userId } = auth();
+  const userId = await getUserId();
 
-  if (!userId) {
-    return redirect("/");
-  }
   const courseOwner = await db.course.findUnique({
     where: {
       userId: userId,

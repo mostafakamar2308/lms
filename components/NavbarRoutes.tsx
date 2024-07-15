@@ -1,17 +1,14 @@
 "use client";
-import { UserButton, useAuth } from "@clerk/nextjs";
 import { usePathname, useRouter } from "next/navigation";
 import { Button } from "./ui/button";
-import { LogOut } from "lucide-react";
+import { BookA, LogOut } from "lucide-react";
 import Link from "next/link";
 import SearchInput from "./SearchInput";
 import { isTeacher } from "@/lib/teacher";
+import { signOutFn } from "@/actions/logout";
 
-const NavbarRoutes = () => {
-  const { userId } = useAuth();
-
+function NavbarRoutes({ userId }: { userId: string }) {
   const pathname = usePathname();
-  const router = useRouter();
   const isTeacherPage = pathname?.startsWith("/dashboard/teacher");
   const isCoursesPage = pathname?.startsWith("/dashboard/courses");
   const isSearchPage = pathname === "/dashboard/search";
@@ -22,12 +19,12 @@ const NavbarRoutes = () => {
           <SearchInput />
         </div>
       )}
-      <div className="flex gap-x-2 mr-auto">
+      <div className="flex gap-x-2 ml-4 mr-auto">
         {isTeacherPage || isCoursesPage ? (
           <Link href={"/dashboard"}>
             <Button size={"sm"} variant={"ghost"}>
-              اخرج
-              <LogOut className="h-4 mr-2 w-4" />
+              <BookA className="h-4 ml-2 w-4" />
+              قائمة الكورسات
             </Button>
           </Link>
         ) : isTeacher(userId) ? (
@@ -37,10 +34,15 @@ const NavbarRoutes = () => {
             </Button>
           </Link>
         ) : null}
-        <UserButton afterSignOutUrl="/" />{" "}
       </div>
+      <form action={signOutFn}>
+        <Button type="submit" variant={"secondary"}>
+          <LogOut className="h-4 ml-2 w-4" />
+          تسجيل الخروج
+        </Button>
+      </form>
     </>
   );
-};
+}
 
 export default NavbarRoutes;

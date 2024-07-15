@@ -1,11 +1,11 @@
 import { db } from "@/lib/db";
 import { isTeacher } from "@/lib/teacher";
-import { auth } from "@clerk/nextjs";
+import { getUserId } from "@/lib/utils";
 import { NextResponse } from "next/server";
 
 export async function POST(req: Request) {
   try {
-    const { userId } = auth();
+    const userId = await getUserId();
     const { title } = await req.json();
 
     if (!userId || !isTeacher(userId)) {

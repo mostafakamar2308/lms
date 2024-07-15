@@ -1,16 +1,12 @@
-import { Button } from "@/components/ui/button";
 import { db } from "@/lib/db";
-import Link from "next/link";
 import { DataTable } from "./_components/DataTable";
 import { columns } from "./_components/Columns";
-import { auth } from "@clerk/nextjs";
-import { redirect } from "next/navigation";
+
+import { getUserId } from "@/lib/utils";
 
 const CoursesPage = async () => {
-  const { userId } = auth();
-  if (!userId) {
-    redirect("/");
-  }
+  const userId = await getUserId();
+
   const courses = await db.course.findMany({
     where: {
       userId,

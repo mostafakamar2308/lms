@@ -2,15 +2,8 @@ import { Suspense } from "react";
 import Navbar from "./_components/Navbar";
 import Sidebar from "./_components/Sidebar";
 import Loading from "./loading";
-import { auth } from "@clerk/nextjs";
-import { redirect } from "next/navigation";
 
 const DashboardLayout = async ({ children }: { children: React.ReactNode }) => {
-  const clerk = auth();
-
-  const { userId } = clerk;
-  if (!userId) return redirect("/");
-
   return (
     <div className="h-full" dir="rtl">
       <div className="h-[80px] md:pr-56 fixed inset-y-0 w-full z-50">

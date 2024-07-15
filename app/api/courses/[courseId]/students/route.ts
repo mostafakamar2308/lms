@@ -1,6 +1,6 @@
 import { db } from "@/lib/db";
 import { isTeacher } from "@/lib/teacher";
-import { auth, clerkClient } from "@clerk/nextjs";
+import { getUserId } from "@/lib/utils";
 import { NextResponse } from "next/server";
 
 export async function POST(
@@ -8,7 +8,7 @@ export async function POST(
   { params }: { params: { courseId: string } }
 ) {
   try {
-    const { userId } = auth();
+    const userId = await getUserId();
     if (!userId || !isTeacher(userId)) {
       return new NextResponse("Unauthorized", { status: 401 });
     }

@@ -4,13 +4,11 @@ import { auth } from "@clerk/nextjs";
 import { db } from "@/lib/db";
 import Link from "next/link";
 import { ArrowLeft, ArrowRight } from "lucide-react";
+import { getUserId } from "@/lib/utils";
 
 async function Page({ params }: { params: { courseId: string } }) {
-  const { userId } = auth();
+  const userId = await getUserId();
 
-  if (!userId) {
-    return redirect("/");
-  }
   const courseOwner = await db.course.findUnique({
     where: {
       userId: userId,

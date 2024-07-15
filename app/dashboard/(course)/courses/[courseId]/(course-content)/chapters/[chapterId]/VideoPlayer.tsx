@@ -1,17 +1,12 @@
 "use client";
 
-import { cn } from "@/lib/utils";
-import MuxPlayer from "@mux/mux-player-react";
-import { Loader2, Lock } from "lucide-react";
-import { useEffect, useState } from "react";
-import { TheosPlayer } from "@aka_theos/react-hls-player";
-import Player from "./_components/Player";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import { useConfettiStore } from "@/hooks/use-confetti-store";
 import { ReplayPlayerWrapper } from "./_components/ReplayPlayerWrapper";
 import { Button } from "@/components/ui/button";
+import { useState } from "react";
 
 interface VideoPlayerProps {
   chapterId: string;

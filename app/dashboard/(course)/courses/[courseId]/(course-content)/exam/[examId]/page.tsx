@@ -1,21 +1,17 @@
 import { db } from "@/lib/db";
-import { auth } from "@clerk/nextjs";
 import { redirect } from "next/navigation";
-import Question from "./_components/Question";
 import QuestionGroup from "./_components/QuestionGroup";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import NewAttempt from "./_components/NewAttempt";
-import { clerkClient } from "@clerk/nextjs/server";
+import { getUserId } from "@/lib/utils";
 
 async function Page({
   params,
 }: {
   params: { courseId: string; examId: string };
 }) {
-  const clerk = auth();
-  const { userId } = clerk;
-  if (!userId) redirect("/");
+  const userId = await getUserId();
 
   const course = await db.purchase.findUnique({
     where: {

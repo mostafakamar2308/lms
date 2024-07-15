@@ -1,13 +1,13 @@
 import { getProgress } from "@/actions/getProgress";
 import { db } from "@/lib/db";
-import { auth } from "@clerk/nextjs";
+
 import { redirect } from "next/navigation";
 import { ReactNode, Suspense } from "react";
 import CourseSidebar from "./_components/CourseSidebar";
 import CourseNavBar from "./_components/CourseNavBar";
 import Loading from "./loading";
-import { clerkClient } from "@clerk/nextjs/server";
-import limitSession from "@/actions/limitSession";
+
+import { getUserId } from "@/lib/utils";
 
 async function CourseLayout({
   children,
@@ -16,10 +16,7 @@ async function CourseLayout({
   children: ReactNode;
   params: { courseId: string };
 }) {
-  const clerk = auth();
-
-  const { userId } = clerk;
-  if (!userId) return redirect("/");
+  const userId = await getUserId();
 
   const course = await db.course.findUnique({
     where: {
