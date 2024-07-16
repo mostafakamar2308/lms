@@ -12,25 +12,33 @@ export default {
       },
       async authorize(credentials: any, request) {
         const { email, password } = credentials;
+        try {
+          if (!email || !password) {
+            throw new Error("Please enter your credentials");
+          }
 
-        const user = await db.user.findUnique({
-          where: {
-            email,
-          },
-        });
+          const user = await db.user.findUnique({
+            where: {
+              email,
+            },
+          });
 
-        if (!user) {
-          return null;
-        }
-        const bcrypt = require("bcryptjs");
-        const isValidPassword = await bcrypt.compare(password, user.password);
-        if (isValidPassword) {
-          return {
-            userId: user.id,
-            email: user.email,
-            name: user.name,
-          };
-        } else {
+          if (!user) {
+            throw new Error("لا يوجد حساب لهذا البريد الالكترونى");
+          }
+          const bcrypt = require("bcryptjs");
+          const isValidPassword = await bcrypt.compare(password, user.password);
+          if (isValidPassword) {
+            return {
+              userId: user.id,
+              email: user.email,
+              name: user.name,
+            };
+          } else {
+            throw new Error("الرقم السرى خاطىء");
+          }
+        } catch (error) {
+          console.log(error);
           return null;
         }
       },
