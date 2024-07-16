@@ -1,7 +1,7 @@
 import { Badge } from "@/components/ui/badge";
 import { db } from "@/lib/db";
 import { formatPrice } from "@/lib/format";
-import { auth } from "@clerk/nextjs";
+import { auth } from "@clerk/nextjs/server";
 import Image from "next/image";
 import { redirect } from "next/navigation";
 import CourseEnrollButton from "../(course-content)/chapters/[chapterId]/_components/CourseEnrollButton";

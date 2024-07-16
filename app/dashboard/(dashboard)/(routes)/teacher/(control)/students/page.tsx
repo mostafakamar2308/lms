@@ -1,5 +1,5 @@
 import { StudentColumns } from "../_components/StudentsColumns";
-import { auth } from "@clerk/nextjs";
+import { auth } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 import { db } from "@/lib/db";
 import { DataTable } from "../../courses/_components/DataTable";

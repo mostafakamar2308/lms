@@ -1,5 +1,5 @@
 import { getDashboardCourses } from "@/actions/getDashboardCourses";
-import { auth } from "@clerk/nextjs";
+import { auth } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 import CoursesList from "../search/_components/CoursesList";
 import limitSession from "@/actions/limitSession";

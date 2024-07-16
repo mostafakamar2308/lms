@@ -1,6 +1,6 @@
 import { getProgress } from "@/actions/getProgress";
 import { db } from "@/lib/db";
-import { auth } from "@clerk/nextjs";
+import { auth } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 import { ReactNode, Suspense } from "react";
 import CourseSidebar from "./_components/CourseSidebar";

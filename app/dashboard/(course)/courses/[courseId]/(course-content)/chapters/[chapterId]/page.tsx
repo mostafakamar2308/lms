@@ -1,6 +1,6 @@
 import { getChapter } from "@/actions/getChapter";
 import { Banner } from "@/components/Banner";
-import { auth } from "@clerk/nextjs";
+import { auth } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 import VideoPlayer from "./VideoPlayer";
 import CourseEnrollButton from "./_components/CourseEnrollButton";

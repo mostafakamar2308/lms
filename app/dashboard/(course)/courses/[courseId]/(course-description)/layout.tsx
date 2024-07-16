@@ -1,7 +1,7 @@
 import { Suspense } from "react";
 
 import Loading from "./loading";
-import { auth } from "@clerk/nextjs";
+import { auth } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 import Navbar from "@/app/dashboard/(dashboard)/_components/Navbar";
 import Sidebar from "@/app/dashboard/(dashboard)/_components/Sidebar";

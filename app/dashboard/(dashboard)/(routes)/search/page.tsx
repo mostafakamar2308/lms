@@ -2,7 +2,7 @@ import { db } from "@/lib/db";
 import Categories from "./_components/Categories";
 import SearchInput from "@/components/SearchInput";
 import { getCourses } from "@/actions/getCourses";
-import { auth } from "@clerk/nextjs";
+import { auth } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 import CoursesList from "./_components/CoursesList";
 import { clerkClient } from "@clerk/nextjs/server";

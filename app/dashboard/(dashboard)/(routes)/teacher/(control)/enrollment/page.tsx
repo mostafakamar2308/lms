@@ -1,6 +1,6 @@
 import { db } from "@/lib/db";
 import { columns } from "../_components/Columns";
-import { auth } from "@clerk/nextjs";
+import { auth } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 import { DataTable } from "../../courses/_components/DataTable";
 

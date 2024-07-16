@@ -1,6 +1,6 @@
 import { redirect } from "next/navigation";
 import SearchStudent from "./_components/SearchStudent";
-import { auth } from "@clerk/nextjs";
+import { auth } from "@clerk/nextjs/server";
 import { db } from "@/lib/db";
 import Link from "next/link";
 import { ArrowLeft, ArrowRight } from "lucide-react";

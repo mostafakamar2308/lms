@@ -2,7 +2,7 @@ import { Suspense } from "react";
 import Navbar from "./_components/Navbar";
 import Sidebar from "./_components/Sidebar";
 import Loading from "./loading";
-import { auth } from "@clerk/nextjs";
+import { auth } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 
 const DashboardLayout = async ({ children }: { children: React.ReactNode }) => {

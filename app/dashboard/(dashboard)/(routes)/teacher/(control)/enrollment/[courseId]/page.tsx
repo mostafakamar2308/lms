@@ -1,6 +1,6 @@
 import UserCard from "@/components/UserCard";
 import { db } from "@/lib/db";
-import { auth } from "@clerk/nextjs";
+import { auth } from "@clerk/nextjs/server";
 import { clerkClient } from "@clerk/nextjs/server";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import Link from "next/link";

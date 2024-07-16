@@ -1,5 +1,5 @@
 import { isTeacher } from "@/lib/teacher";
-import { auth } from "@clerk/nextjs";
+import { auth } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 
 function TeacherLayout({ children }: { children: React.ReactNode }) {
