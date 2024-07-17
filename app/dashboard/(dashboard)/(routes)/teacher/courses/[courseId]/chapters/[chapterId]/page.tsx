@@ -13,13 +13,12 @@ import { redirect } from "next/navigation";
 import ChapterTitleForm from "./_components/ChapterTitleForm";
 import ChapterDescriptionForm from "./_components/ChapterDescriptionForm";
 import ChapterAccessForm from "./_components/ChapterAccessForm";
-import ChapterVideoForm from "./_components/ChapterVideoForm";
 import { Banner } from "@/components/Banner";
 import { ChapterActions } from "./_components/ChapterActions";
 import ExamActions from "./_components/ExamActions";
 import Question from "./_components/Question";
 import ChapterYtVideoForm from "./_components/ChapterYtVideoForm";
-import ytdl from "ytdl-core";
+import ytdl from "@distube/ytdl-core";
 
 const ChapterPage = async ({
   params,
@@ -46,10 +45,9 @@ const ChapterPage = async ({
   });
   let ytUrl: any;
   if (chapter?.videoUrl) {
-    const ytVideo = await ytdl.getInfo(chapter?.videoUrl);
-
+    const ytVideo = await ytdl.getInfo(chapter.videoUrl);
     ytUrl = ytVideo.formats
-      .filter((format) => format.audioCodec && format.videoCodec)
+      .filter((format) => format.hasAudio && format.hasVideo)
       .map((video) => ({ url: video.url, quality: video.qualityLabel }));
   }
 

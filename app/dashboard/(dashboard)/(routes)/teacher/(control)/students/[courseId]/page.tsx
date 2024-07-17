@@ -1,9 +1,8 @@
 import ActivatedUserCard from "@/components/ActivatedUserCard";
-import UserCard from "@/components/UserCard";
 import { Button } from "@/components/ui/button";
 import { db } from "@/lib/db";
-import { auth, clerkClient } from "@clerk/nextjs";
-import { ArrowLeft, ArrowRight, PlusCircle } from "lucide-react";
+import { auth, clerkClient } from "@clerk/nextjs/server";
+import { ArrowRight, PlusCircle } from "lucide-react";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 

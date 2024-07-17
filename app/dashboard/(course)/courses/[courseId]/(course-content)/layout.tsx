@@ -6,8 +6,8 @@ import { ReactNode, Suspense } from "react";
 import CourseSidebar from "./_components/CourseSidebar";
 import CourseNavBar from "./_components/CourseNavBar";
 import Loading from "./loading";
-import { clerkClient } from "@clerk/nextjs/server";
-import limitSession from "@/actions/limitSession";
+// import { clerkClient } from "@clerk/nextjs/server";
+// import limitSession from "@/actions/limitSession";
 
 async function CourseLayout({
   children,

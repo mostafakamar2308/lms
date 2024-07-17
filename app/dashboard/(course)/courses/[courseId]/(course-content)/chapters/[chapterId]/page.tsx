@@ -9,7 +9,7 @@ import { Preview } from "@/components/Preview";
 import { File, Lock } from "lucide-react";
 import CourseProgressButton from "./_components/CourseProgressButton";
 import { Button } from "@/components/ui/button";
-import ytdl from "ytdl-core";
+import ytdl from "@distube/ytdl-core";
 
 async function Page({
   params,
@@ -34,7 +34,6 @@ async function Page({
   const isPurchased = purchase;
   const isActivated = !!purchase?.isActivated;
   const ytVideo = await ytdl.getInfo(chapter.videoUrl!);
-
   const ytUrl = ytVideo.formats
     .filter((format) => format.audioCodec && format.videoCodec)
     .map((video) => ({ url: video.url, quality: video.qualityLabel }));

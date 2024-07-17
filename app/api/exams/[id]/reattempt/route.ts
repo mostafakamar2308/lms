@@ -1,6 +1,5 @@
 import { db } from "@/lib/db";
-import { isTeacher } from "@/lib/teacher";
-import { auth, clerkClient } from "@clerk/nextjs";
+import { auth } from "@clerk/nextjs/server";
 import { NextResponse } from "next/server";
 export async function PATCH(
   req: Request,
