@@ -29,6 +29,8 @@ function SearchStudent({ courseId }: { courseId: string }) {
           const response = await axios.get(
             `/api/courses/${courseId}/students/${debouncedValue}`
           );
+          console.log(response.data);
+
           return response.data;
         }
         return [];

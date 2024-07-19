@@ -27,12 +27,12 @@ export async function GET(
       query: params.email,
     });
 
-    if (users.length === 0) {
+    if (users.data.length === 0) {
       return NextResponse.json([]);
     }
 
     const availableUsers = [];
-    for (let user of users) {
+    for (let user of users.data) {
       const purchase = await db.purchase.findUnique({
         where: {
           userId_courseId: {

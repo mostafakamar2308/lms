@@ -1,5 +1,4 @@
 "use client";
-
 import { useState } from "react";
 
 import axios from "axios";
@@ -7,26 +6,28 @@ import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import { useConfettiStore } from "@/hooks/use-confetti-store";
 import { ReplayPlayerWrapper } from "./_components/ReplayPlayerWrapper";
+import { Button } from "@/components/ui/button";
 
-interface VideoPlayerProps {
+interface YTVideoPlayerProps {
   chapterId: string;
-  videoUrl: string;
+  ytUrl: { url: string; quality: string }[];
   courseId: string;
   nextChapterId?: string;
   playbackId?: string;
   isLocked: boolean;
   examId: string | null;
 }
-function VideoPlayer({
-  videoUrl,
+function YTVideoPlayer({
+  ytUrl,
   chapterId,
   examId,
   courseId,
   nextChapterId,
   isLocked,
-}: VideoPlayerProps) {
+}: YTVideoPlayerProps) {
   const router = useRouter();
   const confetti = useConfettiStore();
+  const [activeVideo, setActiveVideo] = useState(ytUrl[0]);
 
   const onVideoEnd = async () => {
     try {
@@ -56,10 +57,19 @@ function VideoPlayer({
   return (
     <>
       <div className="relative aspect-video">
-        {!isLocked && <ReplayPlayerWrapper src={videoUrl} onEnd={onVideoEnd} />}
+        {!isLocked && (
+          <ReplayPlayerWrapper src={activeVideo.url} onEnd={onVideoEnd} />
+        )}
+      </div>
+      <div className="mt-2 flex gap-4">
+        {ytUrl.map((video, index) => (
+          <Button key={index} onClick={() => setActiveVideo(ytUrl[index])}>
+            {video.quality}
+          </Button>
+        ))}
       </div>
     </>
   );
 }
 
-export default VideoPlayer;
+export default YTVideoPlayer;

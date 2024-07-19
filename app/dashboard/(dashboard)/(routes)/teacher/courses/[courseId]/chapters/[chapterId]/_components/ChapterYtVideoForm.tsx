@@ -19,7 +19,7 @@ import { cn } from "@/lib/utils";
 import { Textarea } from "@/components/ui/textarea";
 import { Chapter, Course } from "@prisma/client";
 import { Input } from "@/components/ui/input";
-import VideoPlayer from "@/app/dashboard/(course)/courses/[courseId]/(course-content)/chapters/[chapterId]/VideoPlayer";
+import VideoPlayer from "@/app/dashboard/(course)/courses/[courseId]/(course-content)/chapters/[chapterId]/YTVideoPlayer";
 import VideoPlayerTeacher from "./VideoPlayerTeacher";
 
 const formSchema = z.object({
