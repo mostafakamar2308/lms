@@ -15,7 +15,7 @@ import { Button } from "@/components/ui/button";
 
 interface VideoPlayerProps {
   chapterId: string;
-  ytUrl: { url: string; quality: string }[];
+  vidUrl: string;
   courseId: string;
   nextChapterId?: string;
   playbackId?: string;
@@ -23,7 +23,7 @@ interface VideoPlayerProps {
   examId: string | null;
 }
 function VideoPlayer({
-  ytUrl,
+  vidUrl,
   chapterId,
   examId,
   courseId,
@@ -32,7 +32,7 @@ function VideoPlayer({
 }: VideoPlayerProps) {
   const router = useRouter();
   const confetti = useConfettiStore();
-  const [activeVideo, setActiveVideo] = useState(ytUrl[0]);
+  const [activeVideo, setActiveVideo] = useState(vidUrl);
 
   const onVideoEnd = async () => {
     try {
@@ -63,16 +63,16 @@ function VideoPlayer({
     <>
       <div className="relative aspect-video">
         {!isLocked && (
-          <ReplayPlayerWrapper src={activeVideo.url} onEnd={onVideoEnd} />
+          <ReplayPlayerWrapper src={activeVideo} onEnd={onVideoEnd} />
         )}
       </div>
-      <div className="mt-2 flex gap-4">
+      {/* <div className="mt-2 flex gap-4">
         {ytUrl.map((video, index) => (
           <Button key={index} onClick={() => setActiveVideo(ytUrl[index])}>
             {video.quality}
           </Button>
         ))}
-      </div>
+      </div> */}
     </>
   );
 }
