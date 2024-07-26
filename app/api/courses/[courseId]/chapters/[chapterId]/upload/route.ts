@@ -1,8 +1,12 @@
 import { NextResponse } from "next/server";
 
+import ffmpegStatic from "ffmpeg-static";
+import { v2 as cloudinary } from "cloudinary";
 import { writeFile } from "fs/promises";
 import path from "path";
-import ffmpegStatic from "ffmpeg-static";
+import { db } from "@/lib/db";
+import { unlinkSync } from "fs";
+
 export async function POST(
   req: Request,
   { params }: { params: { courseId: string; chapterId: string } }
@@ -18,16 +22,36 @@ export async function POST(
 
     const bytes = await chapterVideo.arrayBuffer();
     const buffer = Buffer.from(bytes);
-
     const outputPath = `./uploads/${params.chapterId}-raw${path.extname(
       chapterVideo.name
     )}`;
-
     await writeFile(outputPath, buffer);
-    // Make it on a seperate API
-    transcode({ rawFilePath: outputPath, chapterId: params.chapterId });
-
-    // TODO: change file url on the db itself
+    // ----------------------------------------------------------------
+    // Cloudinary upload
+    const file = await cloudinary.uploader
+      .upload(outputPath, {
+        resource_type: "video",
+        public_id: params.chapterId,
+      })
+      .then((result) => {
+        console.log(result);
+        return result;
+      })
+      .catch((error) => {
+        console.log("Some thing Has Happened");
+        console.log(error);
+      });
+    if (file && file.secure_url) {
+      const chapter = await db.chapter.update({
+        where: {
+          id: params.chapterId,
+        },
+        data: {
+          videoUrl: file.secure_url,
+        },
+      });
+      unlinkSync(outputPath);
+    }
 
     return NextResponse.json({ success: true });
   } catch (error) {

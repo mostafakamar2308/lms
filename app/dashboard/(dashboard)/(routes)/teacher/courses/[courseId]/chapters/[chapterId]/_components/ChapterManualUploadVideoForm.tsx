@@ -81,6 +81,7 @@ function ChapterManualUploadVideoForm({
             initialData={initialData}
             chapterId={chapterId}
             courseId={courseId}
+            finishEditing={() => setIsEditing(false)}
           />
           <div className="text-xs text-muted-foreground mt-4">
             ارفع فيديو الحصة
