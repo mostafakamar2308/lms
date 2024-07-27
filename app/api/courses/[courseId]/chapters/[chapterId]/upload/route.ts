@@ -48,6 +48,7 @@ export async function POST(
         },
         data: {
           videoUrl: file.secure_url,
+          videoSize: file.bytes.toString(),
         },
       });
       unlinkSync(outputPath);

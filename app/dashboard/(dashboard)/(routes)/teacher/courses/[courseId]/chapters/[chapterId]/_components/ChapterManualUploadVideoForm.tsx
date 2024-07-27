@@ -72,7 +72,10 @@ function ChapterManualUploadVideoForm({
           </div>
         ) : (
           <div className="relative aspect-video mt-2">
-            <ReplayPlayerWrapper src={initialData.videoUrl} onEnd={() => {}} />
+            <ReplayPlayerWrapper
+              src={`/api/courses/${courseId}/chapters/${chapterId}/watch`}
+              onEnd={() => {}}
+            />{" "}
           </div>
         )
       ) : (
@@ -81,7 +84,10 @@ function ChapterManualUploadVideoForm({
             initialData={initialData}
             chapterId={chapterId}
             courseId={courseId}
-            finishEditing={() => setIsEditing(false)}
+            finishEditing={() => {
+              setIsEditing(false);
+              router.refresh();
+            }}
           />
           <div className="text-xs text-muted-foreground mt-4">
             ارفع فيديو الحصة

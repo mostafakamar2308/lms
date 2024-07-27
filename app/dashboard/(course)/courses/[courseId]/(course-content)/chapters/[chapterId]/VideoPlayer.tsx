@@ -56,7 +56,25 @@ function VideoPlayer({
   return (
     <>
       <div className="relative aspect-video">
-        {!isLocked && <ReplayPlayerWrapper src={videoUrl} onEnd={onVideoEnd} />}
+        {!isLocked && (
+          <ReplayPlayerWrapper
+            src={`/api/courses/${courseId}/chapters/${chapterId}/watch`}
+            onEnd={onVideoEnd}
+          />
+        )}
+        {/* {!isLocked && (
+          <video
+            width={650}
+            controls
+            autoPlay
+            // onEnd={onVideoEnd}
+          >
+            <source
+              src={`/api/courses/${courseId}/chapters/${chapterId}/watch`}
+              type="video/mp4"
+            />
+          </video>
+        )} */}
       </div>
     </>
   );
