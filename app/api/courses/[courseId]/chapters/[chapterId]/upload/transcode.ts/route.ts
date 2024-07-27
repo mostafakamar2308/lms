@@ -1,15 +1,13 @@
 import { NextResponse } from "next/server";
 
-import { readFile, writeFile } from "fs/promises";
-import path from "path";
 import ffmpeg from "fluent-ffmpeg";
 import ffmpegStatic from "ffmpeg-static";
 
-export const config = {
-  api: {
-    bodyParser: false,
-  },
-};
+// export const config = {
+//   api: {
+//     bodyParser: false,
+//   },
+// };
 
 export async function POST(
   req: Request,
