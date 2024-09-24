@@ -28,6 +28,7 @@ export const getChapter = async ({
       select: {
         title: true,
         price: true,
+        isGradual: true,
       },
     });
     const chapter = await db.chapter.findUnique({
@@ -45,6 +46,7 @@ export const getChapter = async ({
 
     let attachements: Attachemnt[] | null = null;
     let nextChapter: Chapter | null = null;
+    let prevChapter: Chapter | null = null;
 
     if (purchase) {
       attachements = await db.attachemnt.findMany({
@@ -66,6 +68,18 @@ export const getChapter = async ({
           position: "asc",
         },
       });
+      prevChapter = await db.chapter.findFirst({
+        where: {
+          courseId,
+          isPublished: true,
+          position: {
+            lt: chapter?.position,
+          },
+        },
+        orderBy: {
+          position: "asc",
+        },
+      });
     }
     const userProgress = await db.userProgress.findUnique({
       where: {
@@ -80,6 +94,7 @@ export const getChapter = async ({
       course,
       attachements,
       userProgress,
+      prevChapter,
       purchase,
       nextChapter,
     };

@@ -9,6 +9,8 @@ import { Preview } from "@/components/Preview";
 import { File, Lock } from "lucide-react";
 import CourseProgressButton from "./_components/CourseProgressButton";
 import { Button } from "@/components/ui/button";
+import { db } from "@/lib/db";
+import VidPlayerLocked from "./_components/VidPlayerLocked";
 // import ytdl from "@distube/ytdl-core";
 
 async function Page({
@@ -20,12 +22,19 @@ async function Page({
   const { userId } = clerk;
   if (!userId) redirect("/");
 
-  const { chapter, course, attachements, nextChapter, userProgress, purchase } =
-    await getChapter({
-      userId,
-      chapterId: params.chapterId,
-      courseId: params.courseId,
-    });
+  const {
+    chapter,
+    course,
+    attachements,
+    nextChapter,
+    userProgress,
+    purchase,
+    prevChapter,
+  } = await getChapter({
+    userId,
+    chapterId: params.chapterId,
+    courseId: params.courseId,
+  });
 
   if (!course || !chapter) {
     return redirect("/");
@@ -33,6 +42,25 @@ async function Page({
 
   const isPurchased = purchase;
   const isActivated = !!purchase?.isActivated;
+  const isGradual = course.isGradual;
+  let prevChapterCompleted = false;
+  if (!prevChapter) {
+    prevChapterCompleted = true;
+  }
+  if (prevChapter && isActivated) {
+    const prevChapterProgress = await db.userProgress.findUnique({
+      where: {
+        userId_chapterId: {
+          userId,
+          chapterId: prevChapter.id,
+        },
+      },
+    });
+    if (prevChapterProgress?.isCompleted) {
+      prevChapterCompleted = true;
+    }
+  }
+
   // const ytVideo = await ytdl.getInfo(chapter.videoUrl!);
   // const ytUrl = ytVideo.formats
   //   .filter((format) => format.audioCodec && format.videoCodec)
@@ -68,6 +96,19 @@ async function Page({
                 </div>
               )}
             </div>
+          ) : isGradual ? (
+            prevChapterCompleted ? (
+              <VideoPlayer
+                examId={chapter.exam?.id || null}
+                chapterId={params.chapterId}
+                courseId={params.courseId}
+                nextChapterId={nextChapter?.id}
+                isLocked={isLocked}
+                vidUrl={chapter.videoUrl!}
+              />
+            ) : (
+              <VidPlayerLocked></VidPlayerLocked>
+            )
           ) : (
             <VideoPlayer
               examId={chapter.exam?.id || null}
