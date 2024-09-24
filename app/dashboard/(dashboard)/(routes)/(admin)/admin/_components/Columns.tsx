@@ -3,7 +3,8 @@
 import { Button } from "@/components/ui/button";
 // import { User } from "@clerk/nextjs/server";
 import { ColumnDef } from "@tanstack/react-table";
-import { ArrowUpDown } from "lucide-react";
+import { ArrowUpDown, Pencil } from "lucide-react";
+import Link from "next/link";
 
 // This type is used to define the shape of our data.
 // You can use a Zod schema here if you want.
@@ -70,22 +71,22 @@ export const columns: ColumnDef<User>[] = [
       return <div className="text-center">{row.getValue("numOfStudents")}</div>;
     },
   },
-  // {
-  //   id: "actions",
-  //   header: ({ column }) => {
-  //     return (
-  //       <Button variant="ghost" className="mx-auto flex">
-  //         خصائص الكورس
-  //       </Button>
-  //     );
-  //   },
-  //   cell: ({ row }) => {
-  //     const { id } = row.original;
-  //     return (
-  //       <Link href={`/dashboard/teacher/courses/${id}`} className="">
-  //         <Pencil className="h-4 w-4 mx-auto" />
-  //       </Link>
-  //     );
-  //   },
-  // },
+  {
+    id: "actions",
+    header: ({ column }) => {
+      return (
+        <Button variant="ghost" className="mx-auto flex">
+          خصائص المدرس{" "}
+        </Button>
+      );
+    },
+    cell: ({ row }) => {
+      const { id } = row.original;
+      return (
+        <Link href={`/dashboard/admin/teacher/${id}`} className="">
+          <Pencil className="h-4 w-4 mx-auto" />
+        </Link>
+      );
+    },
+  },
 ];

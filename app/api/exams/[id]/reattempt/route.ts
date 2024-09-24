@@ -16,7 +16,6 @@ export async function PATCH(
         isCompleted: false,
       },
     });
-    console.log(userProgress);
 
     return NextResponse.json({ userProgress });
   } catch (error) {

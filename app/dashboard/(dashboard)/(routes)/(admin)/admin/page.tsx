@@ -6,6 +6,7 @@ import { columns } from "./_components/Columns";
 import { Button } from "@/components/ui/button";
 import { PlusCircle } from "lucide-react";
 import { db } from "@/lib/db";
+import AddTeacherButton from "./_components/AddTeacherButton";
 
 async function page() {
   const { userId } = auth();
@@ -38,21 +39,17 @@ async function page() {
     adminUsersData.push({
       id: user.id,
       emailAddress: user.emailAddresses[0].emailAddress,
-      name: `${user.firstName} ${user.lastName}`,
+      name: `${user.firstName} ${user.lastName ? user.lastName : ""}`,
       createdAt: user.createdAt,
       numOfStudents,
       numOfCourses: courses.length,
     });
   }
 
-  console.log(adminUsersData);
   return (
     <div className="p-6">
       <div className="flex justify-end mb-4 ml-4">
-        <Button>
-          {" "}
-          <PlusCircle className="ml-2" /> أضف مدرس جديد
-        </Button>
+        <AddTeacherButton />
       </div>
       <div>
         <DataTable columns={columns} data={adminUsersData} />
