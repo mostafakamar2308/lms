@@ -79,6 +79,8 @@ function ChapterVideoForm({
           <FileUploader
             endpoint="chapterVideo"
             onChange={(url) => {
+              console.log(url);
+
               if (url) {
                 onSubmit({ videoUrl: url });
               }

@@ -26,6 +26,7 @@ model Course {
   imageUrl    String? @db.Text
   price       Float?  @default(1)
   isPublished Boolean @default(false)
+  isGradual   Boolean @default(true)
 
   isFree Boolean @default(false)
 
@@ -65,6 +66,8 @@ model Chapter {
   position    Int
   isPublished Boolean @default(false)
   isFree      Boolean @default(false)
+  // this is for cloudinary upload
+  videoSize   String?
 
   exam Exam?
 

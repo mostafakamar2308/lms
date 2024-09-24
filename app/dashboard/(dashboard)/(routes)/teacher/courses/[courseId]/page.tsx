@@ -17,6 +17,7 @@ import AttachmentForm from "./_components/AttachmentForm";
 import ChaptersForm from "./_components/ChaptersForm";
 import CourseActions from "./_components/CourseActions";
 import { Banner } from "@/components/Banner";
+import CourseGradualForm from "./_components/CourseGradualForm";
 
 const CoursePage = async ({ params }: { params: { courseId: string } }) => {
   const { userId } = auth();
@@ -116,6 +117,13 @@ const CoursePage = async ({ params }: { params: { courseId: string } }) => {
                 <h2 className="text-xl">حصص الكورس</h2>
               </div>
               <ChaptersForm initialData={course} courseId={course.id} />
+            </div>
+            <div className="">
+              <div className="flex items-center gap-x-2">
+                <IconBadge icon={ListChecks} />
+                <h2 className="text-xl">نظام الكورس</h2>
+              </div>
+              <CourseGradualForm initialData={course} courseId={course.id} />
             </div>
             <div>
               <div className="flex items-center gap-x-2">
