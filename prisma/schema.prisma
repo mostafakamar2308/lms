@@ -18,6 +18,54 @@ model Category {
   courses Course[]
 }
 
+model Post {
+  id             String        @id @default(uuid())
+  userId         String
+  title          String
+  description    String
+  imageUrl       String?
+  likes          Like[]
+  comments       Comment[]
+  postCategory   PostCategory? @relation(fields: [postCategoryId], references: [id])
+  postCategoryId String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([postCategoryId])
+}
+
+model Like {
+  id     String @id @default(uuid())
+  userId String
+
+  postId String
+  post   Post   @relation(fields: [postId], references: [id])
+
+  @@unique([userId, postId])
+  @@index([postId])
+}
+
+model Comment {
+  id       String  @id @default(uuid())
+  userId   String
+  content  String
+  imageUrl String?
+
+  postId    String
+  post      Post     @relation(fields: [postId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([postId])
+}
+
+model PostCategory {
+  id    String @id @default(uuid())
+  name  String @unique
+  posts Post[]
+}
+
 model Course {
   id          String  @id @default(uuid())
   userId      String

@@ -4,11 +4,13 @@ const database = new PrismaClient();
 
 async function main() {
   try {
-    await database.category.createMany({
+    await database.postCategory.createMany({
       data: [
-        { name: "الصف الأول الثانوى" },
-        { name: "الصف الثانى الثانوى" },
-        { name: "الصف الثالث الثانوى" },
+        { name: "قواعد" },
+        { name: "قصة" },
+        { name: "كلمات" },
+        { name: "ترجمة" },
+        { name: "قطعة" },
       ],
     });
     console.log("Success");

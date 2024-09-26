@@ -8,7 +8,6 @@ export const { GET, POST } = createRouteHandler({
   config: {
     logLevel: "debug",
     uploadthingId: "q7ti7m4igy",
-    uploadthingSecret:
-      "sk_live_4f0492177665b65c6f2f34a641d826fd9f68375e49713faa41cfb1db01bd700a",
+    uploadthingSecret: process.env.UPLOADTHING_SECRET,
   },
 });

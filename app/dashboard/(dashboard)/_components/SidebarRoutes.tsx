@@ -1,6 +1,7 @@
 "use client";
 
 import {
+  BadgeHelp,
   BarChart,
   Compass,
   Handshake,
@@ -14,15 +15,26 @@ import { usePathname } from "next/navigation";
 const guestRoutes = [
   { icon: Layout, label: "كورساتى", href: "/dashboard" },
   { icon: Compass, label: "تصفح الكورسات", href: "/dashboard/search" },
+  {
+    icon: BadgeHelp,
+    label: "منتدى الأسئلة",
+    href: "/dashboard/question-forum",
+  },
 ];
 
 const teacherRoutes = [
   { icon: List, label: "الكورسات", href: "/dashboard/teacher/courses" },
   {
+    icon: BadgeHelp,
+    label: "منتدى الأسئلة",
+    href: "/dashboard/question-forum",
+  },
+  {
     icon: BarChart,
     label: "تحليل البيانات",
     href: "/dashboard/teacher/analytics",
   },
+
   {
     icon: Handshake,
     label: "طلبات الانضمام",
