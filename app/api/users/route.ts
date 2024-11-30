@@ -1,26 +1,47 @@
+import { encodeUser } from "@/auth/server/jwt";
+import { hashPassword } from "@/auth/server/password";
 import { db } from "@/lib/db";
-import { auth } from "@clerk/nextjs/server";
+import { apiError, internalError, passwordMisMatch } from "@/lib/serverErrors";
+import { IUser } from "@/types";
 import { NextResponse } from "next/server";
+import z from "zod";
+
+const credentials = z.object({
+  name: z.string().min(2).max(50),
+  email: z.string().email(),
+  password: z.string().min(8).max(255),
+  confirmPassword: z.string().min(8).max(255),
+});
+const JWTSecret = process.env.JWT_SECRET;
 
 export async function POST(req: Request) {
   try {
-    const { userId } = auth();
-    const { name, email, password } = await req.json();
+    if (!JWTSecret) return NextResponse.next(internalError());
+    const { name, email, password, confirmPassword } = credentials.parse(
+      await req.json()
+    );
 
-    if (!userId) {
-      return new NextResponse("Unauthorized", { status: 401 });
-    }
-    const teacher = await db.user.create({
+    if (password !== confirmPassword) NextResponse.next(passwordMisMatch());
+
+    const hasedPassword = hashPassword(password);
+
+    const student = await db.user.create({
       data: {
         name,
         email,
-        password,
-        role: "student",
+        password: hasedPassword,
+        role: IUser.Roles.Student,
       },
     });
-    return NextResponse.json(teacher);
+
+    const response: IUser.LoginWithPasswordResponse = encodeUser({
+      user: student,
+      secret: JWTSecret,
+    });
+
+    return NextResponse.json(response);
   } catch (error) {
     console.log("[User Creation]", error);
-    return new NextResponse("Internal Server Error", { status: 500 });
+    return NextResponse.next(internalError());
   }
 }
