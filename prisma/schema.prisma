@@ -12,6 +12,29 @@ datasource db {
   relationMode = "prisma"
 }
 
+model User {
+  id          String  @id @default(uuid())
+  name        String
+  email       String  @unique
+  password    String
+  image       String?
+  verified    Boolean @default(false)
+  phoneNumber String?
+  role        String
+
+  purchase Purchase[]
+
+  post         Post[]
+  like         Like[]
+  comment      Comment[]
+  examProgress ExamProgress[]
+  userProgress UserProgress[]
+  grade        Grade[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now())
+}
+
 model Category {
   id      String   @id @default(uuid())
   name    String   @unique
@@ -19,15 +42,18 @@ model Category {
 }
 
 model Post {
-  id             String        @id @default(uuid())
-  userId         String
-  title          String
-  description    String
-  imageUrl       String?
-  likes          Like[]
-  comments       Comment[]
-  postCategory   PostCategory? @relation(fields: [postCategoryId], references: [id])
+  id          String    @id @default(uuid())
+  title       String
+  description String
+  imageUrl    String?
+  likes       Like[]
+  comments    Comment[]
+
   postCategoryId String
+  postCategory   PostCategory? @relation(fields: [postCategoryId], references: [id])
+
+  userId String @unique
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -38,6 +64,7 @@ model Post {
 model Like {
   id     String @id @default(uuid())
   userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   postId String
   post   Post   @relation(fields: [postId], references: [id])
@@ -47,8 +74,9 @@ model Like {
 }
 
 model Comment {
-  id       String  @id @default(uuid())
-  userId   String
+  id       String  @id @unique @default(uuid())
+  userId   String  @unique
+  user     User    @relation(fields: [userId], references: [id], onDelete: Cascade)
   content  String
   imageUrl String?
 
@@ -68,13 +96,14 @@ model PostCategory {
 
 model Course {
   id          String  @id @default(uuid())
-  userId      String
   title       String  @db.Text
   description String? @db.Text
   imageUrl    String? @db.Text
   price       Float?  @default(1)
   isPublished Boolean @default(false)
   isGradual   Boolean @default(true)
+
+  userId String
 
   isFree Boolean @default(false)
 
@@ -119,8 +148,6 @@ model Chapter {
 
   exam Exam?
 
-  muxData MuxData?
-
   courseId String
   course   Course @relation(fields: [courseId], references: [id], onDelete: Cascade)
 
@@ -155,18 +182,10 @@ model Question {
   @@index([examId])
 }
 
-model MuxData {
-  id         String  @id @default(uuid())
-  assetId    String
-  playbackId String?
-
-  chapterId String  @unique
-  chapter   Chapter @relation(fields: [chapterId], references: [id], onDelete: Cascade)
-}
-
 model ExamProgress {
   id     String @id @default(uuid())
   userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   examId String
   exam   Exam   @relation(fields: [examId], references: [id], onDelete: Cascade)
@@ -183,7 +202,8 @@ model ExamProgress {
 
 model Grade {
   id     String @id @default(uuid())
-  userId String
+  userId String @unique
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   grade     Int
   createdAt DateTime @default(now())
@@ -198,6 +218,7 @@ model Grade {
 model UserProgress {
   id     String @id @default(uuid())
   userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   chapterId String
   chapter   Chapter @relation(fields: [chapterId], references: [id], onDelete: Cascade)
@@ -213,8 +234,10 @@ model UserProgress {
 
 model Purchase {
   id          String  @id @default(uuid())
-  userId      String
   isActivated Boolean @default(false)
+
+  userId String @unique
+  user   User   @relation(fields: [userId], references: [id])
 
   courseId String
   course   Course @relation(fields: [courseId], references: [id], onDelete: Cascade)
@@ -224,14 +247,4 @@ model Purchase {
 
   @@unique([userId, courseId])
   @@index([courseId])
-}
-
-model StripeCustomer {
-  id     String @id @default(uuid())
-  userId String @unique
-
-  stripeCustomerId String @unique
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
 }
