@@ -10,7 +10,7 @@ function ReplayPlayer({ src, onEnd }: { src: string; onEnd: () => void }) {
       }}
       source={{ streamUrl: src }}
       initialPlaybackProps={{ isPaused: true }}
-    ></Replay>
+    />
   );
 }
 

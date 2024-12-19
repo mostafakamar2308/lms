@@ -24,6 +24,8 @@ model User {
 
   purchase Purchase[]
 
+  session Session[]
+
   post         Post[]
   like         Like[]
   comment      Comment[]
@@ -31,8 +33,34 @@ model User {
   userProgress UserProgress[]
   grade        Grade[]
 
+  device Device[]
+
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now())
+}
+
+model Session {
+  id     String @id @default(uuid())
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  token     String
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+
+  @@unique([userId, token])
+}
+
+model Device {
+  id String @id @default(uuid())
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  deviceName String?
+  lastUsed   DateTime @default(now())
+
+  @@unique([userId, id])
 }
 
 model Category {

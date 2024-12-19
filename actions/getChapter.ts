@@ -1,5 +1,5 @@
 import { db } from "@/lib/db";
-import { MuxData, Attachemnt, Chapter } from "@prisma/client";
+import { Attachemnt, Chapter } from "@prisma/client";
 interface GetChapterProps {
   userId: string;
   courseId: string;

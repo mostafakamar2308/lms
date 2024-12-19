@@ -6,7 +6,7 @@ import { ImageIcon, Pencil, PlusCircle, Video } from "lucide-react";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
-import { Chapter, Course, MuxData } from "@prisma/client";
+import { Chapter } from "@prisma/client";
 import FileUploader from "@/components/FileUploader";
 import { ReplayPlayerWrapper } from "@/app/dashboard/(course)/courses/[courseId]/(course-content)/chapters/[chapterId]/_components/ReplayPlayerWrapper";
 
@@ -15,7 +15,7 @@ const formSchema = z.object({
 });
 
 interface ChapterVideoFormProps {
-  initialData: Chapter & { muxData?: MuxData | null };
+  initialData: Chapter;
   courseId: string;
   chapterId: string;
 }

@@ -17,9 +17,6 @@ import { Banner } from "@/components/Banner";
 import { ChapterActions } from "./_components/ChapterActions";
 import ExamActions from "./_components/ExamActions";
 import Question from "./_components/Question";
-// import ChapterYtVideoForm from "./_components/ChapterYtVideoForm";
-// import ytdl from "@distube/ytdl-core";
-// import VideoPlayer from "@/app/dashboard/(course)/courses/[courseId]/(course-content)/chapters/[chapterId]/VideoPlayer";
 import ChapterVideoForm from "./_components/ChapterVideoForm";
 
 const ChapterPage = async ({
@@ -37,7 +34,6 @@ const ChapterPage = async ({
       courseId: params.courseId,
     },
     include: {
-      muxData: true,
       exam: {
         include: {
           questions: true,
@@ -45,13 +41,6 @@ const ChapterPage = async ({
       },
     },
   });
-  // let ytUrl: any;
-  // if (chapter?.videoUrl) {
-  //   const ytVideo = await ytdl.getInfo(chapter.videoUrl);
-  //   ytUrl = ytVideo.formats
-  //     .filter((format) => format.hasAudio && format.hasVideo)
-  //     .map((video) => ({ url: video.url, quality: video.qualityLabel }));
-  // }
 
   if (!chapter) {
     redirect("/");
