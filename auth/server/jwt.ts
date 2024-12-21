@@ -1,11 +1,10 @@
-import { from } from "@/prisma/schemaUtils";
-import { IUser } from "@/types";
-import { User } from "@prisma/client";
 import jwt from "jsonwebtoken";
 import z from "zod";
 
 const jwtPayload = z.object({
   userId: z.string(),
+  sessionId: z.string(),
+  deviceId: z.string(),
 });
 
 export function encodeJwt(data: any, secret: string) {
@@ -15,10 +14,14 @@ export function encodeJwt(data: any, secret: string) {
   return token;
 }
 
-export function decodeJwt(token: string, secret: string): string {
-  const decoded = jwt.verify(token, secret);
-  const { userId } = jwtPayload.parse(decoded);
-  return userId;
+export function decodeJwt(token: string, secret: string) {
+  try {
+    const decoded = jwt.verify(token, secret);
+    const payload = jwtPayload.parse(decoded);
+    return payload;
+  } catch (error) {
+    return null;
+  }
 }
 
 export function generateRefreshToken({

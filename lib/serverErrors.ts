@@ -44,3 +44,10 @@ export const multipleDevices = () =>
     "There is another device on this account",
     401
   );
+
+export const invalidToken = () =>
+  error(
+    IError.ApiErrorCode.InvalidToken,
+    "There is another device on this account",
+    401
+  );

@@ -8,4 +8,5 @@ export enum ApiErrorCode {
   WrongPassword = "wrong-password",
   InternalError = "internal-error",
   MultipleDevices = "multiple-devices",
+  InvalidToken = "invalid-token",
 }

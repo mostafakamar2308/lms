@@ -12,8 +12,8 @@ import { IAuth, IUser } from "@/types";
 import { NextResponse } from "next/server";
 import z from "zod";
 import { cookies } from "next/headers";
-import { randomUUID } from "crypto";
 import { from } from "@/prisma/schemaUtils";
+import { cookieSetter } from "@/lib/cookiesHandler";
 
 const credentials = z.object({
   email: z.string().email(),
@@ -115,25 +115,23 @@ export async function POST(req: Request) {
       secret: JWTSecret,
     });
 
-    cookieStore.set("deviceId", device.id, {
-      expires: new Date().getTime() + 30 * 24 * 60 * 60 * 1000, // 30 days,
-      httpOnly: true,
-      sameSite: "strict",
-      secure: true,
+    cookieSetter({
+      store: cookieStore,
+      key: "deviceId",
+      value: device.id,
+      expiresAt: new Date().getTime() + 30 * 24 * 60 * 60 * 1000, // 30 days
     });
-
-    cookieStore.set("refreshToken", refreshToken, {
-      expires: new Date().getTime() + 7 * 24 * 60 * 60 * 1000, // 7 days,
-      httpOnly: true,
-      sameSite: "strict",
-      secure: true,
+    cookieSetter({
+      store: cookieStore,
+      key: "sessionId",
+      value: session.id,
+      expiresAt: new Date().getTime() + 60 * 60 * 1000, // 60 minutes
     });
-
-    cookieStore.set("sessionId", session.id, {
-      expires: new Date().getTime() + 60 * 60 * 1000, // 60 minutes
-      httpOnly: true,
-      sameSite: "strict",
-      secure: true,
+    cookieSetter({
+      store: cookieStore,
+      key: "refreshToken",
+      value: refreshToken,
+      expiresAt: new Date().getTime() + 7 * 24 * 60 * 60 * 1000, // 7 days,
     });
 
     const response: IUser.LoginWithPasswordResponse = from.user(user);
