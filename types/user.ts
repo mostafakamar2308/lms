@@ -15,7 +15,4 @@ export enum Roles {
   Student = "Student",
 }
 
-export type LoginWithPasswordResponse = {
-  user: Self;
-  token: string;
-};
+export type LoginWithPasswordResponse = Self;

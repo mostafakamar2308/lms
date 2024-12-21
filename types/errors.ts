@@ -7,4 +7,5 @@ export enum ApiErrorCode {
   UserAlreadyExists = "user-already-exists",
   WrongPassword = "wrong-password",
   InternalError = "internal-error",
+  MultipleDevices = "multiple-devices",
 }

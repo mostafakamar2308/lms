@@ -8,8 +8,8 @@ const jwtPayload = z.object({
   userId: z.string(),
 });
 
-export function encodeJwt(userId: string, secret: string) {
-  const token = jwt.sign({ userId }, secret, {
+export function encodeJwt(data: any, secret: string) {
+  const token = jwt.sign({ data }, secret, {
     expiresIn: "7d",
   });
   return token;
@@ -21,14 +21,16 @@ export function decodeJwt(token: string, secret: string): string {
   return userId;
 }
 
-export function encodeUser({
-  user,
+export function generateRefreshToken({
+  userId,
+  sessionId,
+  deviceId,
   secret,
 }: {
-  user: User;
+  userId: string;
+  sessionId: string;
+  deviceId: string;
   secret: string;
-}): IUser.LoginWithPasswordResponse {
-  const token = encodeJwt(user.id, secret);
-  const sanitizedUser = from.user(user);
-  return { user: sanitizedUser, token };
+}) {
+  return encodeJwt({ userId, sessionId, deviceId }, secret);
 }

@@ -40,19 +40,28 @@ model User {
 }
 
 model Session {
-  id     String @id @default(uuid())
+  id String @id @default(uuid())
+
   userId String
   user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-  token     String
+  state String
+
+  deviceId String?
+  device   Device? @relation(fields: [deviceId], references: [id])
+
   expiresAt DateTime
   createdAt DateTime @default(now())
 
-  @@unique([userId, token])
+  @@index([userId])
+  @@index([deviceId])
+  @@index([id])
 }
 
 model Device {
   id String @id @default(uuid())
+
+  session Session[]
 
   userId String
   user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)

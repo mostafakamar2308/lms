@@ -37,3 +37,10 @@ export const userAlreadyExists = () =>
   );
 export const wrongPassword = () =>
   error(IError.ApiErrorCode.WrongPassword, "password is incorrect", 400);
+
+export const multipleDevices = () =>
+  error(
+    IError.ApiErrorCode.MultipleDevices,
+    "There is another device on this account",
+    401
+  );

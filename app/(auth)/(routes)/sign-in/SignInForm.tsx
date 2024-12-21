@@ -1,11 +1,14 @@
 "use client";
 import { Input } from "@/components/input";
 import { Button } from "@/components/ui/button";
-import axios from "axios";
+import { Route } from "@/types/routes";
+import axios, { AxiosError } from "axios";
+import { useRouter } from "next/navigation";
 import { ChangeEvent, FormEvent, useCallback, useState } from "react";
 import toast from "react-hot-toast";
 
 export const SignInForm = () => {
+  const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
   const [userDetails, setUserDetails] = useState({
     email: "",
@@ -26,14 +29,16 @@ export const SignInForm = () => {
 
         await axios.post("api/auth/login", userDetails);
         toast.success("logged in successfully.");
+        router.push(Route.dashboard);
       } catch (error) {
-        if (error instanceof Error) return toast.error(error.message);
+        if (error instanceof AxiosError)
+          return toast.error(error.response?.data.message);
         toast.error("An error has occured");
       } finally {
         setIsLoading(false);
       }
     },
-    [userDetails]
+    [userDetails, router]
   );
 
   return (
